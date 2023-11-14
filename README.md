@@ -1,5 +1,5 @@
 # Building linux kernel on Mac M1 and running with Qemu
-[METHOD](https://mgalgs.io/2021/03/23/how-to-build-a-custom-linux-kernel-for-qemu-using-docker.html)
+[How To Build A Custom Linux Kernel For Qemu Using Docker by MGALGS](https://mgalgs.io/2021/03/23/how-to-build-a-custom-linux-kernel-for-qemu-using-docker.html)
 
 ## Prepare the docker image running Ubuntu 22.04
 
