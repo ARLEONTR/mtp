@@ -167,17 +167,29 @@ cat > init <<EOF
 mount -t devtmpfs dev /dev
 mount -t proc proc /proc
 mount -t sysfs sysfs /sys
+mount -t 9p -o trans=virtio,version=9p2000.L host0 /mnt
 ip link set up dev lo
-
-exec /sbin/getty -n -l /bin/sh 115200 /dev/console
+echo "mtp" > /etc/hostname
+hostname -F /etc/hostname
+cat > /etc/network/interfaces <<EOF
+auto lo
+iface lo inet loopback
+auto eth0
+iface eth0 inet dhcp
+EOF
+ip link set up dev eth0
+ifconfig eth0 up
+udhcpc eth0
+exec /sbin/getty -n -l /bin/sh 115200 /dev/console 
 poweroff -f
+
 EOF
 
 chmod +x init
 
 find . -print0 |
     cpio --null --create --verbose  --format=newc |
-    lz4c -l > ../initramfs.img.lz4
+    lz4c -l > ../obj/initramfs.img.lz4
 
 popd
 ```

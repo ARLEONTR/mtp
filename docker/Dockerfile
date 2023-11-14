@@ -26,6 +26,8 @@ RUN apt-get install -y \
         libiberty-dev \
         autoconf \
         llvm \
-        dwarves 
+        dwarves 
+
+RUN apt-get install -y liblz4-tool
 
 WORKDIR /root/mtp
