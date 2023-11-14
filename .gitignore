@@ -1,0 +1,6 @@
+/obj
+/initramfs
+
+*.o
+*.obj
+

@@ -1,0 +1,12 @@
+#! /bin/sh
+#
+# /init executable file in the initramfs 
+#
+mount -t devtmpfs dev /dev
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t 9p -o trans=virtio,version=9p2000.L host0 /mnt
+ip link set up dev lo
+
+exec /sbin/getty -n -l /bin/sh 115200 /dev/console
+poweroff -f
