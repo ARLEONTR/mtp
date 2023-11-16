@@ -1,5 +1,5 @@
 FROM ubuntu:22.04
-
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 RUN apt-get install -y \
         bc \
@@ -13,21 +13,26 @@ RUN apt-get install -y \
         vim-tiny 
 
 
+RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONTAINER_TIMEZONE > /etc/timezone
+
 RUN apt-get install -y \
-        libncurses-dev \
         gawk \
-        flex bison \
         openssl \
-        libssl-dev \
         dkms \
-        libelf-dev \
         libudev-dev \
         libpci-dev \
         libiberty-dev \
         autoconf \
         llvm \
-        dwarves 
+        dwarves \
+        liblz4-tool 
+# The following are for compiling documentation
+RUN apt-get install -y \
+        python3 \
+        python3-pip \ 
+        python3-sphinx \
+        texlive-xetex 
 
-RUN apt-get install -y liblz4-tool
+RUN pip3 install -U rst2pdf jinja2 sphinx sphinx_rtd_theme virtualenv
 
 WORKDIR /root/mtp
