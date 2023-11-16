@@ -13,7 +13,7 @@ RUN apt-get install -y \
         vim-tiny 
 
 
-RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONTAINER_TIMEZONE > /etc/timezone
+#RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONTAINER_TIMEZONE > /etc/timezone
 
 RUN apt-get install -y \
         gawk \
@@ -31,8 +31,10 @@ RUN apt-get install -y \
         python3 \
         python3-pip \ 
         python3-sphinx \
-        texlive-xetex 
+        texlive-xetex \
+        graphviz \
+        inkscape
 
-RUN pip3 install -U rst2pdf jinja2 sphinx sphinx_rtd_theme virtualenv
+RUN pip3 install rst2pdf jinja2 sphinx sphinx_rtd_theme virtualenv
 
 WORKDIR /root/mtp
