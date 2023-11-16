@@ -127,7 +127,7 @@ Before building the kernel change
 ```
 xt_TCPMSS to xt_tcpmss
 ```
-since the filesystem is case-insentive on macos m1, whereas linux expects so. The other option for not applying this modification is to create a case-sensitive volume and keep your projec folder in this volume.
+since the filesystem is case-insensitive on MAC m1, whereas linux expects so. The other option for not applying this modification is to create a case-sensitive volume on your MAC and keep your project folder in this volume.
 
 ```
 make O=../obj/linux-basic -j$(nproc)     
