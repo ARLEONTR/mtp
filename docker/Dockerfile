@@ -25,8 +25,9 @@ RUN apt-get install -y \
         autoconf \
         llvm \
         dwarves \
-        liblz4-tool 
-# The following are for compiling documentation
+        liblz4-tool \
+        git
+        # The following are for compiling documentation
 RUN apt-get install -y \
         python3 \
         python3-pip \ 

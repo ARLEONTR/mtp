@@ -203,3 +203,7 @@ find . -print0 |
 
 popd
 ```
+
+# Run toybox
+
+[TOYBOX](http://landley.net/toybox/quick.html)
