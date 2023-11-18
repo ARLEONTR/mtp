@@ -204,6 +204,6 @@ find . -print0 |
 popd
 ```
 
-# Run toybox
+# ToyBox instead of Busybox or Alpine
 
 [TOYBOX](http://landley.net/toybox/quick.html)
