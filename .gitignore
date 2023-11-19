@@ -1,7 +1,19 @@
 /obj
 /initramfs
-
+/toybox
+/toybox/
 *.o
 *.obj
 
 .DS_Store
+
+syntax: glob
+.config*
+.single*
+change/
+generated/
+kconfig/mconf
+kconfig/conf
+kconfig/*.c
+toybox
+toybox_unstripped
