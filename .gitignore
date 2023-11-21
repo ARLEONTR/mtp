@@ -4,10 +4,8 @@
 /toybox/
 *.o
 *.obj
-
+.DS_Store*
 .DS_Store
-/HomeModule
-
 syntax: glob
 .config*
 .single*
