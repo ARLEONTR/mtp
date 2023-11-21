@@ -1,0 +1,1 @@
+savedcmd_/root/mtp/mtpv1/mtp.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /root/mtp/mtpv1/mtp.ko /root/mtp/mtpv1/mtp.o /root/mtp/mtpv1/mtp.mod.o;  make -f ./arch/x86/Makefile.postlink /root/mtp/mtpv1/mtp.ko
