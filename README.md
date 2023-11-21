@@ -1,5 +1,8 @@
 # Building linux kernel on Mac M1 and running with Qemu
+
 [How To Build A Custom Linux Kernel For Qemu Using Docker by MGALGS](https://mgalgs.io/2021/03/23/how-to-build-a-custom-linux-kernel-for-qemu-using-docker.html)
+
+Instead of cross-compiling, we will use the Host Machine's build tools and use the adequate qemu.
 
 ## Prepare the docker image running Ubuntu 22.04
 
@@ -46,10 +49,9 @@ RUN pip3 install rst2pdf jinja2 sphinx sphinx_rtd_theme virtualenv
 
 WORKDIR /root/mtp
 
-
 ```
 
-Run 
+Run in a terminal under the docker folder...
 ```
 docker build -t mtp .
 ```
@@ -60,7 +62,7 @@ docker build -t mtp .
 Then in the root folder of the project:
 
 ```
-curl https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.6.tar.xz | tar xJf -
+curl https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.6.2.tar.xz | tar xJf -
 
 curl https://busybox.net/downloads/busybox-1.36.1.tar.bz2 | tar xjf -
 ```
@@ -115,11 +117,11 @@ find . -print0 \
 
 
 # Building the linux kernel
-
+if you want to build in another folder add O=../obj/linux-basic 
 ```
-cd linux-6.6
-make O=../obj/linux-basic defconfig
-make O=../obj/linux-basic kvm_guest.config
+cd linux-6.6.2
+make  defconfig
+make kvm_guest.config
 ```
 
 
@@ -130,14 +132,22 @@ xt_TCPMSS to xt_tcpmss
 since the filesystem is case-insensitive on MAC m1, whereas linux expects so. The other option for not applying this modification is to create a case-sensitive volume on your MAC and keep your project folder in this volume.
 
 ```
-make O=../obj/linux-basic -j$(nproc)     
+make  -j$(nproc)     
 ```
 
-Your image is at ../obj/linux-basic/arch/x86_64/boot/bzImage
+Your image is at ../obj/linux-basic/arch/.../boot/bzImage depending on your arch (x86, arm, ...)
 
-Kernel compilation is done now. On you host machine 
+Kernel compilation is done now. 
 
-Run your linux with QEMU on your host machine. Go to the root folder of the project and run
+
+On the root folder of your project 
+```
+qemu-img create -f qcow2 hda.qcow2 16G
+```
+
+### On Mac M1
+
+On your host machine run your linux with QEMU on your host machine.  Go to the root folder of the project and run if you are on Mac M1
 ```
 qemu-system-aarch64 -M virt -m 1024 -cpu cortex-a53 \
     -machine virtualization=true -machine virt,gic-version=3  \
@@ -155,10 +165,26 @@ qemu-system-aarch64 -M virt -m 1024 -cpu cortex-a53 \
     -virtfs local,path=./,mount_tag=host0,security_model=mapped,id=host0  
 ```
 
-On the root folder of your project 
+### On Mac with Intel Chip
+
+On your host machine run your linux with QEMU on your host machine.  Go to the root folder of the project and run if you are on Mac M1
 ```
-qemu-img create -f qcow2 hda.qcow2 16G
+qemu-system-x86_64 \
+    -machine virtualization=true -machine virt,gic-version=3  \
+    -cpu max,pauth-impdef=on -smp 2 -m 4096           \
+    -device virtio-scsi-pci,id=scsi0              \
+    -object rng-random,filename=/dev/urandom,id=rng0      \
+    -device virtio-rng-pci,rng=rng0               \
+    -kernel ./obj/linux-basic/arch/arm64/boot/Image \
+    -initrd ./obj/initramfs-busybox.cpio.gz  \
+    -drive if=none,file=hda.qcow2,format=qcow2,id=hd \
+    -device virtio-blk-pci,drive=hd \
+    -device virtio-net-pci,netdev=eth0 \
+    -netdev user,id=eth0,hostfwd=tcp::8022-:22  \
+    -nographic -no-reboot \
+    -virtfs local,path=./,mount_tag=host0,security_model=mapped,id=host0    
 ```
+
 
 # Alpine instead of Busybox
 
