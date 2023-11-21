@@ -6,6 +6,7 @@
 *.obj
 
 .DS_Store
+/HomeModule
 
 syntax: glob
 .config*
