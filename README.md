@@ -4,7 +4,7 @@ First of all, on MAC create a case-sensitive volume: [Directions](https://brianb
 
 And in the project folder, tell git to work case sensitive: ```git config core.ignorecase false```
 
-[How To Build A Custom Linux Kernel For Qemu Using Docker by MGALGS](https://mgalgs.io/2021/03/23/how-to-build-a-custom-linux-kernel-for-qemu-using-docker.html)
+These instructions are mostly from: [How To Build A Custom Linux Kernel For Qemu Using Docker by MGALGS](https://mgalgs.io/2021/03/23/how-to-build-a-custom-linux-kernel-for-qemu-using-docker.html)
 
 Instead of cross-compiling, we will use the Host Machine's build tools and use the adequate qemu.
 
@@ -24,8 +24,16 @@ RUN apt-get install -y \
         libelf-dev \
         libncurses-dev \
         libssl-dev \
-        vim-tiny 
-
+        vim-tiny \
+        bindgen \
+        jfsutils \
+        reiserfsprogs \
+        xfsprogs \
+        squashfs-tools \
+        btrfs-progs \
+        pcmciautils \
+        iptables \
+        gcc
 
 #RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONTAINER_TIMEZONE > /etc/timezone
 
@@ -37,9 +45,13 @@ RUN apt-get install -y \
         libpci-dev \
         libiberty-dev \
         autoconf \
-        llvm \
         dwarves \
-        liblz4-tool 
+        liblz4-tool \
+        git \
+        fakeroot \
+        xz-utils \
+        fakeroot 
+
 # The following are for compiling documentation
 RUN apt-get install -y \
         python3 \
@@ -47,7 +59,8 @@ RUN apt-get install -y \
         python3-sphinx \
         texlive-xetex \
         graphviz \
-        inkscape
+        inkscape 
+
 
 RUN pip3 install rst2pdf jinja2 sphinx sphinx_rtd_theme virtualenv
 
