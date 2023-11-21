@@ -7,4 +7,4 @@ To compile: make all
 ## History
 | Version  | Date | Description |
 | -------- | ----- | ----------- |
-| 0.0.1    | November 21, 2023 | Initial commit, an LKM is initiated |
+| 0.0.1    | November 21, 2023 | Initial commit, a LKM is initiated |
