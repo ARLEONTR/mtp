@@ -1,6 +1,6 @@
 # Building linux kernel on Mac M1 and running with Qemu
 
-First of all, on MAC create a case-sensitive volume: (Directions)[https://brianboyko.medium.com/a-case-sensitive-src-folder-for-mac-programmers-176cc82a3830]
+First of all, on MAC create a case-sensitive volume: [Directions](https://brianboyko.medium.com/a-case-sensitive-src-folder-for-mac-programmers-176cc82a3830)
 
 And in the project folder, tell git to work case sensitive: ```git config core.ignorecase false```
 
