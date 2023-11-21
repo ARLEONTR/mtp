@@ -1,5 +1,9 @@
 # Building linux kernel on Mac M1 and running with Qemu
 
+First of all, on MAC create a case-sensitive volume: (Directions)[https://brianboyko.medium.com/a-case-sensitive-src-folder-for-mac-programmers-176cc82a3830]
+
+And in the project folder, tell git to work case sensitive: ```git config core.ignorecase false```
+
 [How To Build A Custom Linux Kernel For Qemu Using Docker by MGALGS](https://mgalgs.io/2021/03/23/how-to-build-a-custom-linux-kernel-for-qemu-using-docker.html)
 
 Instead of cross-compiling, we will use the Host Machine's build tools and use the adequate qemu.
