@@ -2,11 +2,10 @@
 
 Note that this is the development version.
 
+To compile: make all
 
-## To compile
+## History
 
-```make all```
-
-Changes:
-Version | Description
-0.0.1   | Initial commit, an LKM is initiated
+| Version  | Date | Description |
+| -------- | ----- | ----------- |
+| 0.0.1    | November 21, 2023 |Initial commit, an LKM is initiated |
