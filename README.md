@@ -8,6 +8,6 @@
 
 ## Development environment setup for Ubuntu (x86)
 
-TODO
+[Setup](README-SETUP-LINUX.md)
 
 
