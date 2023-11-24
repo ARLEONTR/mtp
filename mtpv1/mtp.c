@@ -36,45 +36,45 @@ static bool exiting = false;
  * MTP sockets.
  */
 const struct proto_ops MTP_proto_ops = {
-	.family		   = PF_INET,
-	.owner		   = THIS_MODULE,
-	.release	   = inet_release,
-	.bind		   = MTP_bind,
-	.connect	   = inet_dgram_connect,
-	.socketpair	   = sock_no_socketpair,
-	.accept		   = sock_no_accept,
-	.getname	   = inet_getname,
-	.poll		   = MTP_poll,
-	.ioctl		   = inet_ioctl,
-	.listen		   = sock_no_listen,
-	.shutdown	   = MTP_shutdown,
-	.setsockopt	   = sock_common_setsockopt,
-	.getsockopt	   = sock_common_getsockopt,
-	.sendmsg	   = inet_sendmsg,
-	.recvmsg	   = inet_recvmsg,
-	.mmap		   = sock_no_mmap,
-	.set_peek_off	   = sk_set_peek_off,
+	.family = PF_INET,
+	.owner = THIS_MODULE,
+	.release = inet_release,
+	.bind = MTP_bind,
+	.connect = inet_dgram_connect,
+	.socketpair = sock_no_socketpair,
+	.accept = sock_no_accept,
+	.getname = inet_getname,
+	.poll = MTP_poll,
+	.ioctl = inet_ioctl,
+	.listen = sock_no_listen,
+	.shutdown = MTP_shutdown,
+	.setsockopt = sock_common_setsockopt,
+	.getsockopt = sock_common_getsockopt,
+	.sendmsg = inet_sendmsg,
+	.recvmsg = inet_recvmsg,
+	.mmap = sock_no_mmap,
+	.set_peek_off = sk_set_peek_off,
 };
 
 const struct proto_ops MTPv6_proto_ops = {
-	.family		   = PF_INET6,
-	.owner		   = THIS_MODULE,
-	.release	   = inet6_release,
-	.bind		   = MTP_bind,
-	.connect	   = inet_dgram_connect,
-	.socketpair	   = sock_no_socketpair,
-	.accept		   = sock_no_accept,
-	.getname	   = inet6_getname,
-	.poll		   = MTP_poll,
-	.ioctl		   = inet6_ioctl,
-	.listen		   = sock_no_listen,
-	.shutdown	   = MTP_shutdown,
-	.setsockopt	   = sock_common_setsockopt,
-	.getsockopt	   = sock_common_getsockopt,
-	.sendmsg	   = inet_sendmsg,
-	.recvmsg	   = inet_recvmsg,
-	.mmap		   = sock_no_mmap,
-	.set_peek_off	   = sk_set_peek_off,
+	.family = PF_INET6,
+	.owner = THIS_MODULE,
+	.release = inet6_release,
+	.bind = MTP_bind,
+	.connect = inet_dgram_connect,
+	.socketpair = sock_no_socketpair,
+	.accept = sock_no_accept,
+	.getname = inet6_getname,
+	.poll = MTP_poll,
+	.ioctl = inet6_ioctl,
+	.listen = sock_no_listen,
+	.shutdown = MTP_shutdown,
+	.setsockopt = sock_common_setsockopt,
+	.getsockopt = sock_common_getsockopt,
+	.sendmsg = inet_sendmsg,
+	.recvmsg = inet_recvmsg,
+	.mmap = sock_no_mmap,
+	.set_peek_off = sk_set_peek_off,
 };
 
 /* This structure also defines functions that handle various operations
@@ -84,99 +84,99 @@ const struct proto_ops MTPv6_proto_ops = {
  * MTP_proto_ops. Most of these functions have MTP-specific implementations.
  */
 struct proto MTP_prot = {
-	.name		   = "MTP",
-	.owner		   = THIS_MODULE,
-	.close		   = MTP_close,
-	.connect	   = ip4_datagram_connect,
-	.disconnect	   = MTP_disconnect,
-	.ioctl		   = MTP_ioctl,
-	.init		   = MTP_socket,
-	.destroy	   = 0,
-	.setsockopt	   = MTP_setsockopt,
-	.getsockopt	   = MTP_getsockopt,
-	.sendmsg	   = MTP_sendmsg,
-	.recvmsg	   = MTP_recvmsg,
-	.backlog_rcv       = MTP_backlog_rcv,
-	.release_cb	   = ip4_datagram_release_cb,
-	.hash		   = MTP_hash,
-	.unhash		   = MTP_unhash,
-	.rehash		   = MTP_rehash,
-	.get_port	   = MTP_get_port,
-	.sysctl_mem	   = sysctl_MTP_mem,
-	.sysctl_wmem	   = &sysctl_MTP_wmem_min,
-	.sysctl_rmem	   = &sysctl_MTP_rmem_min,
-	.obj_size	   = sizeof(struct MTP_sock),
-	.diag_destroy	   = MTP_diag_destroy,
-	.no_autobind       = 1,
+	.name = "MTP",
+	.owner = THIS_MODULE,
+	.close = MTP_close,
+	.connect = ip4_datagram_connect,
+	.disconnect = MTP_disconnect,
+	.ioctl = MTP_ioctl,
+	.init = MTP_socket,
+	.destroy = 0,
+	.setsockopt = MTP_setsockopt,
+	.getsockopt = MTP_getsockopt,
+	.sendmsg = MTP_sendmsg,
+	.recvmsg = MTP_recvmsg,
+	.backlog_rcv = MTP_backlog_rcv,
+	.release_cb = ip4_datagram_release_cb,
+	.hash = MTP_hash,
+	.unhash = MTP_unhash,
+	.rehash = MTP_rehash,
+	.get_port = MTP_get_port,
+	.sysctl_mem = sysctl_MTP_mem,
+	.sysctl_wmem = &sysctl_MTP_wmem_min,
+	.sysctl_rmem = &sysctl_MTP_rmem_min,
+	.obj_size = sizeof(struct MTP_sock),
+	.diag_destroy = MTP_diag_destroy,
+	.no_autobind = 1,
 };
 
 struct proto MTPv6_prot = {
-	.name		   = "MTPv6",
-	.owner		   = THIS_MODULE,
-	.close		   = MTP_close,
-	.connect	   = ip6_datagram_connect,
-	.disconnect	   = MTP_disconnect,
-	.ioctl		   = MTP_ioctl,
-	.init		   = MTP_socket,
-	.destroy	   = 0,
-	.setsockopt	   = MTP_setsockopt,
-	.getsockopt	   = MTP_getsockopt,
-	.sendmsg	   = MTP_sendmsg,
-	.recvmsg	   = MTP_recvmsg,
-	.backlog_rcv       = MTP_backlog_rcv,
-	.release_cb	   = ip6_datagram_release_cb,
-	.hash		   = MTP_hash,
-	.unhash		   = MTP_unhash,
-	.rehash		   = MTP_rehash,
-	.get_port	   = MTP_get_port,
-	.sysctl_mem	   = sysctl_MTP_mem,
-	.sysctl_wmem	   = &sysctl_MTP_wmem_min,
-	.sysctl_rmem	   = &sysctl_MTP_rmem_min,
+	.name = "MTPv6",
+	.owner = THIS_MODULE,
+	.close = MTP_close,
+	.connect = ip6_datagram_connect,
+	.disconnect = MTP_disconnect,
+	.ioctl = MTP_ioctl,
+	.init = MTP_socket,
+	.destroy = 0,
+	.setsockopt = MTP_setsockopt,
+	.getsockopt = MTP_getsockopt,
+	.sendmsg = MTP_sendmsg,
+	.recvmsg = MTP_recvmsg,
+	.backlog_rcv = MTP_backlog_rcv,
+	.release_cb = ip6_datagram_release_cb,
+	.hash = MTP_hash,
+	.unhash = MTP_unhash,
+	.rehash = MTP_rehash,
+	.get_port = MTP_get_port,
+	.sysctl_mem = sysctl_MTP_mem,
+	.sysctl_wmem = &sysctl_MTP_wmem_min,
+	.sysctl_rmem = &sysctl_MTP_rmem_min,
 
 	/* IPv6 data comes *after* MTP's data, and isn't included in
 	 * struct MTP_sock.
 	 */
-	.obj_size	   = sizeof(struct MTP_sock) + sizeof(struct ipv6_pinfo),
-	.diag_destroy	   = MTP_diag_destroy,
-	.no_autobind       = 1,
+	.obj_size = sizeof(struct MTP_sock) + sizeof(struct ipv6_pinfo),
+	.diag_destroy = MTP_diag_destroy,
+	.no_autobind = 1,
 };
 
 /* Top-level structure describing the MTP protocol. */
 struct inet_protosw MTP_protosw = {
-	.type              = SOCK_DGRAM,
-	.protocol          = IPPROTO_MTP,
-	.prot              = &MTP_prot,
-	.ops               = &MTP_proto_ops,
-	.flags             = INET_PROTOSW_REUSE,
+	.type = SOCK_DGRAM,
+	.protocol = IPPROTO_MTP,
+	.prot = &MTP_prot,
+	.ops = &MTP_proto_ops,
+	.flags = INET_PROTOSW_REUSE,
 };
 
 struct inet_protosw MTPv6_protosw = {
-	.type              = SOCK_DGRAM,
-	.protocol          = IPPROTO_MTP,
-	.prot              = &MTPv6_prot,
-	.ops               = &MTPv6_proto_ops,
-	.flags             = INET_PROTOSW_REUSE,
+	.type = SOCK_DGRAM,
+	.protocol = IPPROTO_MTP,
+	.prot = &MTPv6_prot,
+	.ops = &MTPv6_proto_ops,
+	.flags = INET_PROTOSW_REUSE,
 };
 
 /* This structure is used by IP to deliver incoming MTP packets to us. */
 static struct net_protocol MTP_protocol = {
-	.handler =	MTP_softirq,
-	.err_handler =	MTP_err_handler_v4,
-	.no_policy =     1,
+	.handler = MTP_softirq,
+	.err_handler = MTP_err_handler_v4,
+	.no_policy = 1,
 };
 
 static struct inet6_protocol MTPv6_protocol = {
-	.handler =	MTP_softirq,
-	.err_handler =	MTP_err_handler_v6,
-	.flags =        INET6_PROTO_NOPOLICY|INET6_PROTO_FINAL,
+	.handler = MTP_softirq,
+	.err_handler = MTP_err_handler_v6,
+	.flags = INET6_PROTO_NOPOLICY | INET6_PROTO_FINAL,
 };
 
 /* Describes file operations implemented for /proc/net/MTP_metrics. */
 static const struct proc_ops MTP_metrics_pops = {
-	.proc_open         = MTP_metrics_open,
-	.proc_read         = MTP_metrics_read,
-	.proc_lseek        = MTP_metrics_lseek,
-	.proc_release      = MTP_metrics_release,
+	.proc_open = MTP_metrics_open,
+	.proc_read = MTP_metrics_read,
+	.proc_lseek = MTP_metrics_lseek,
+	.proc_release = MTP_metrics_release,
 };
 
 /* Used to remove /proc/net/MTP_metrics when the module is unloaded. */
@@ -186,16 +186,12 @@ static int action;
 
 /* Used to configure sysctl access to MTP configuration parameters.*/
 static struct ctl_table MTP_ctl_table[] = {
-	{
-		.procname	= "action",
-		.data		= &action,
-		.maxlen		= sizeof(int),
-		.mode		= 0644,
-		.proc_handler	= MTP_dointvec
-	},
-	{}
-};
-
+	{.procname = "action",
+	 .data = &action,
+	 .maxlen = sizeof(int),
+	 .mode = 0644,
+	 .proc_handler = MTP_dointvec},
+	{}};
 
 /* Used to remove sysctl values when the module is unloaded. */
 static struct ctl_table_header *MTP_ctl_header;
@@ -206,73 +202,80 @@ static DECLARE_COMPLETION(timer_thread_done);
  * MTP_load() - invoked when this module is loaded into the Linux kernel
  * Return: 0 on success, otherwise a negative errno.
  */
-static int __init MTP_load(void) {
+static int __init MTP_load(void)
+{
 	int status;
 
 	printk(KERN_NOTICE "MTP module loading\n");
 	printk(KERN_NOTICE "MTP1 module loading\n");
 	printk(KERN_NOTICE "MTP2 module loading\n");
-	
+
 	status = proto_register(&MTP_prot, 1);
-	if (status != 0) {
+	if (status != 0)
+	{
 		printk(KERN_ERR "proto_register failed for MTP_prot: %d\n",
-		    status);
+			   status);
 		goto out;
 	}
 	status = proto_register(&MTPv6_prot, 1);
-	if (status != 0) {
+	if (status != 0)
+	{
 		printk(KERN_ERR "proto_register failed for MTPv6_prot: %d\n",
-		    status);
+			   status);
 		goto out;
 	}
 	inet_register_protosw(&MTP_protosw);
 	inet6_register_protosw(&MTPv6_protosw);
 	status = inet_add_protocol(&MTP_protocol, IPPROTO_MTP);
-	if (status != 0) {
+	if (status != 0)
+	{
 		printk(KERN_ERR "inet_add_protocol failed in MTP_load: %d\n",
-		    status);
+			   status);
 		goto out_cleanup;
 	}
 	status = inet6_add_protocol(&MTPv6_protocol, IPPROTO_MTP);
-	if (status != 0) {
+	if (status != 0)
+	{
 		printk(KERN_ERR "inet6_add_protocol failed in MTP_load: %d\n",
-		    status);
+			   status);
 		goto out_cleanup;
 	}
 
-	//status = MTP_init(MTP);
-	//if (status)
+	// status = MTP_init(MTP);
+	// if (status)
 	//	goto out_cleanup;
 	metrics_dir_entry = proc_create("MTP_metrics", S_IRUGO,
-			init_net.proc_net, &MTP_metrics_pops);
-	if (!metrics_dir_entry) {
+									init_net.proc_net, &MTP_metrics_pops);
+	if (!metrics_dir_entry)
+	{
 		printk(KERN_ERR "couldn't create /proc/net/MTP_metrics\n");
 		status = -ENOMEM;
 		goto out_cleanup;
 	}
 
 	MTP_ctl_header = register_net_sysctl(&init_net, "net/MTP",
-			MTP_ctl_table);
-	if (!MTP_ctl_header) {
+										 MTP_ctl_table);
+	if (!MTP_ctl_header)
+	{
 		printk(KERN_ERR "couldn't register MTP sysctl parameters\n");
 		status = -ENOMEM;
 		goto out_cleanup;
 	}
 
-/*
-	status = MTP_offload_init();
-	if (status != 0) {
-		printk(KERN_ERR "MTP couldn't init offloads\n");
-		goto out_cleanup;
-	}
-*/
+	/*
+		status = MTP_offload_init();
+		if (status != 0) {
+			printk(KERN_ERR "MTP couldn't init offloads\n");
+			goto out_cleanup;
+		}
+	*/
 	return 0;
 
 out_cleanup:
-	//MTP_offload_end();
+	// MTP_offload_end();
 	unregister_net_sysctl_table(MTP_ctl_header);
 	proc_remove(metrics_dir_entry);
-	//MTP_destroy(MTP);
+	// MTP_destroy(MTP);
 	inet_del_protocol(&MTP_protocol, IPPROTO_MTP);
 	inet_unregister_protosw(&MTP_protosw);
 	inet6_del_protocol(&MTPv6_protocol, IPPROTO_MTP);
@@ -286,17 +289,17 @@ out:
 /**
  * MTP_unload() - invoked when this module is unloaded from the Linux kernel.
  */
-static void __exit MTP_unload(void) {
+static void __exit MTP_unload(void)
+{
 	printk(KERN_NOTICE "MTP module unloading\n");
 	exiting = true;
 
-	
-	//if (MTP_offload_end() != 0)
+	// if (MTP_offload_end() != 0)
 	//	printk(KERN_ERR "MTP couldn't stop offloads\n");
-	//wait_for_completion(&timer_thread_done);
+	// wait_for_completion(&timer_thread_done);
 	unregister_net_sysctl_table(MTP_ctl_header);
 	proc_remove(metrics_dir_entry);
-	//MTP_destroy(MTP);
+	// MTP_destroy(MTP);
 	inet_del_protocol(&MTP_protocol, IPPROTO_MTP);
 	inet_unregister_protosw(&MTP_protosw);
 	inet6_del_protocol(&MTPv6_protocol, IPPROTO_MTP);
@@ -320,25 +323,31 @@ module_exit(MTP_unload);
  */
 int MTP_bind(struct socket *sock, struct sockaddr *addr, int addr_len)
 {
-	//struct MTP_sock *hsk = MTP_sk(sock->sk);
-	sockaddr_in_union *addr_in = (sockaddr_in_union *) addr;
+	// struct MTP_sock *hsk = MTP_sk(sock->sk);
+	sockaddr_in_union *addr_in = (sockaddr_in_union *)addr;
 	int port;
 
-	if (unlikely(addr->sa_family != sock->sk->sk_family)) {
+	if (unlikely(addr->sa_family != sock->sk->sk_family))
+	{
 		return -EAFNOSUPPORT;
 	}
-	if (addr_in->in6.sin6_family == AF_INET6) {
-		if (addr_len < sizeof(struct sockaddr_in6)) {
+	if (addr_in->in6.sin6_family == AF_INET6)
+	{
+		if (addr_len < sizeof(struct sockaddr_in6))
+		{
 			return -EINVAL;
 		}
 		port = ntohs(addr_in->in4.sin_port);
-	} else if (addr_in->in4.sin_family == AF_INET) {
-		if (addr_len < sizeof(struct sockaddr_in)) {
+	}
+	else if (addr_in->in4.sin_family == AF_INET)
+	{
+		if (addr_len < sizeof(struct sockaddr_in))
+		{
 			return -EINVAL;
 		}
 		port = ntohs(addr_in->in6.sin6_port);
 	}
-	//return MTP_sock_bind(&MTP->port_map, hsk, port);
+	// return MTP_sock_bind(&MTP->port_map, hsk, port);
 	return 0;
 }
 
@@ -347,12 +356,13 @@ int MTP_bind(struct socket *sock, struct sockaddr *addr, int addr_len)
  * @sk:      Socket being closed
  * @timeout: ??
  */
-void MTP_close(struct sock *sk, long timeout) {
-	//struct MTP_sock *hsk = MTP_sk(sk);
-	//MTP_sock_destroy(hsk);
+void MTP_close(struct sock *sk, long timeout)
+{
+	// struct MTP_sock *hsk = MTP_sk(sk);
+	// MTP_sock_destroy(hsk);
 	sk_common_release(sk);
-	//tt_record1("closed socket, port %d\n", hsk->port);
-	//if (hsk->MTP->freeze_type == SOCKET_CLOSE)
+	// tt_record1("closed socket, port %d\n", hsk->port);
+	// if (hsk->MTP->freeze_type == SOCKET_CLOSE)
 	//	tt_freeze();
 }
 
@@ -367,7 +377,7 @@ void MTP_close(struct sock *sk, long timeout) {
  */
 int MTP_shutdown(struct socket *sock, int how)
 {
-	//MTP_sock_shutdown(MTP_sk(sock->sk));
+	// MTP_sock_shutdown(MTP_sk(sock->sk));
 	return 0;
 }
 
@@ -379,7 +389,8 @@ int MTP_shutdown(struct socket *sock, int how)
  *
  * Return: 0 on success, otherwise a negative errno.
  */
-int MTP_disconnect(struct sock *sk, int flags) {
+int MTP_disconnect(struct sock *sk, int flags)
+{
 	printk(KERN_WARNING "unimplemented disconnect invoked on MTP socket\n");
 	return -ENOSYS;
 }
@@ -392,7 +403,8 @@ int MTP_disconnect(struct sock *sk, int flags) {
  *
  * Return: 0 on success, otherwise a negative errno.
  */
-int MTP_ioc_abort(struct sock *sk, unsigned long arg) {
+int MTP_ioc_abort(struct sock *sk, unsigned long arg)
+{
 	int ret = 0;
 	return ret;
 }
@@ -406,8 +418,9 @@ int MTP_ioc_abort(struct sock *sk, unsigned long arg) {
  *
  * Return: 0 on success, otherwise a negative errno.
  */
-int MTP_ioctl(struct sock *sk, int cmd, int * arg) {
-	int result=0;
+int MTP_ioctl(struct sock *sk, int cmd, int *arg)
+{
+	int result = 0;
 	return result;
 }
 
@@ -420,8 +433,8 @@ int MTP_ioctl(struct sock *sk, int cmd, int * arg) {
  */
 int MTP_socket(struct sock *sk)
 {
-	//struct MTP_sock *hsk = MTP_sk(sk);
-	//MTP_sock_init(hsk, MTP);
+	// struct MTP_sock *hsk = MTP_sk(sk);
+	// MTP_sock_init(hsk, MTP);
 	return 0;
 }
 
@@ -436,11 +449,10 @@ int MTP_socket(struct sock *sk)
  * Return:   0 on success, otherwise a negative errno.
  */
 int MTP_setsockopt(struct sock *sk, int level, int optname, sockptr_t optval,
-		unsigned int optlen)
+				   unsigned int optlen)
 {
-	
-	return 0;
 
+	return 0;
 }
 
 /**
@@ -453,11 +465,12 @@ int MTP_setsockopt(struct sock *sk, int level, int optname, sockptr_t optval,
  * Return:   0 on success, otherwise a negative errno.
  */
 int MTP_getsockopt(struct sock *sk, int level, int optname,
-    char __user *optval, int __user *option) {
+				   char __user *optval, int __user *option)
+{
 	printk(KERN_WARNING "unimplemented getsockopt invoked on MTP socket:"
-			" level %d, optname %d\n", level, optname);
+						" level %d, optname %d\n",
+		   level, optname);
 	return -EINVAL;
-
 }
 
 /**
@@ -468,7 +481,8 @@ int MTP_getsockopt(struct sock *sk, int level, int optname,
  * @len:   Number of bytes of the message.
  * Return: 0 on success, otherwise a negative errno.
  */
-int MTP_sendmsg(struct sock *sk, struct msghdr *msg, size_t length) {
+int MTP_sendmsg(struct sock *sk, struct msghdr *msg, size_t length)
+{
 	int result = 0;
 	return result;
 }
@@ -484,7 +498,7 @@ int MTP_sendmsg(struct sock *sk, struct msghdr *msg, size_t length) {
  *               errno.
  */
 int MTP_recvmsg(struct sock *sk, struct msghdr *msg, size_t len, int flags,
-		 int *addr_len)
+				int *addr_len)
 {
 
 	int result = 0;
@@ -501,7 +515,8 @@ int MTP_recvmsg(struct sock *sk, struct msghdr *msg, size_t len, int flags,
  * Return:  0 on success, otherwise a negative errno.
  */
 int MTP_sendpage(struct sock *sk, struct page *page, int offset,
-		  size_t size, int flags) {
+				 size_t size, int flags)
+{
 	printk(KERN_WARNING "unimplemented sendpage invoked on MTP socket\n");
 	return -ENOSYS;
 }
@@ -511,7 +526,8 @@ int MTP_sendpage(struct sock *sk, struct page *page, int offset,
  * @sk:    Socket for the operation
  * Return: ??
  */
-int MTP_hash(struct sock *sk) {
+int MTP_hash(struct sock *sk)
+{
 	printk(KERN_WARNING "unimplemented hash invoked on MTP socket\n");
 	return 0;
 }
@@ -520,7 +536,8 @@ int MTP_hash(struct sock *sk) {
  * MTP_unhash() - ??.
  * @sk:    Socket for the operation
  */
-void MTP_unhash(struct sock *sk) {
+void MTP_unhash(struct sock *sk)
+{
 	return;
 	printk(KERN_WARNING "unimplemented unhash invoked on MTP socket\n");
 }
@@ -529,7 +546,8 @@ void MTP_unhash(struct sock *sk) {
  * MTP_rehash() - ??.
  * @sk:    Socket for the operation
  */
-void MTP_rehash(struct sock *sk) {
+void MTP_rehash(struct sock *sk)
+{
 	printk(KERN_WARNING "unimplemented rehash invoked on MTP socket\n");
 }
 
@@ -540,7 +558,8 @@ void MTP_rehash(struct sock *sk) {
  * @snum:  Unclear what this is.
  * Return: Zero for success, or a negative errno for an error.
  */
-int MTP_get_port(struct sock *sk, unsigned short snum) {
+int MTP_get_port(struct sock *sk, unsigned short snum)
+{
 	/* MTP always assigns ports immediately when a socket is created,
 	 * so there is nothing to do here.
 	 */
@@ -553,10 +572,10 @@ int MTP_get_port(struct sock *sk, unsigned short snum) {
  * @err:   ??
  * Return: ??
  */
-int MTP_diag_destroy(struct sock *sk, int err) {
+int MTP_diag_destroy(struct sock *sk, int err)
+{
 	printk(KERN_WARNING "unimplemented diag_destroy invoked on MTP socket\n");
 	return -ENOSYS;
-
 }
 
 /**
@@ -564,7 +583,8 @@ int MTP_diag_destroy(struct sock *sk, int err) {
  * @skb:    Socket buffer.
  * Return: Always 0?
  */
-int MTP_v4_early_demux(struct sk_buff *skb) {
+int MTP_v4_early_demux(struct sk_buff *skb)
+{
 	printk(KERN_WARNING "unimplemented early_demux invoked on MTP socket\n");
 	return 0;
 }
@@ -574,7 +594,8 @@ int MTP_v4_early_demux(struct sk_buff *skb) {
  * @skb:    Socket buffer.
  * @return: Always 0?
  */
-int MTP_v4_early_demux_handler(struct sk_buff *skb) {
+int MTP_v4_early_demux_handler(struct sk_buff *skb)
+{
 	printk(KERN_WARNING "unimplemented early_demux_handler invoked on MTP socket\n");
 	return 0;
 }
@@ -585,7 +606,8 @@ int MTP_v4_early_demux_handler(struct sk_buff *skb) {
  * @skb:   The incoming packet.
  * Return: Always 0
  */
-int MTP_softirq(struct sk_buff *skb) {
+int MTP_softirq(struct sk_buff *skb)
+{
 	printk(KERN_WARNING "unimplemented MTP_softirq\n");
 	return 0;
 }
@@ -628,7 +650,7 @@ int MTP_err_handler_v4(struct sk_buff *skb, u32 info)
  * Return: zero, or a negative errno if the error couldn't be handled here.
  */
 int MTP_err_handler_v6(struct sk_buff *skb, struct inet6_skb_parm *opt,
-			u8 type,  u8 code,  int offset,  __be32 info)
+					   u8 type, u8 code, int offset, __be32 info)
 {
 	return 0;
 }
@@ -645,7 +667,8 @@ int MTP_err_handler_v6(struct sk_buff *skb, struct inet6_skb_parm *opt,
  *         state of the socket.
  */
 __poll_t MTP_poll(struct file *file, struct socket *sock,
-	       struct poll_table_struct *wait) {
+				  struct poll_table_struct *wait)
+{
 	__poll_t mask;
 	mask = POLLOUT | POLLWRNORM;
 	return mask;
@@ -677,12 +700,11 @@ int MTP_metrics_open(struct inode *inode, struct file *file)
  * file was reached, and a negative number indicates an error (-errno).
  */
 ssize_t MTP_metrics_read(struct file *file, char __user *buffer,
-		size_t length, loff_t *offset)
+						 size_t length, loff_t *offset)
 {
-	size_t copied=0;
+	size_t copied = 0;
 	return copied;
 }
-
 
 /**
  * MTP_metrics_lseek() - This function is invoked to handle seeks on
@@ -723,7 +745,7 @@ int MTP_metrics_release(struct inode *inode, struct file *file)
  * Return: 0 for success, nonzero for error.
  */
 int MTP_dointvec(struct ctl_table *table, int write,
-		void __user *buffer, size_t *lenp, loff_t *ppos)
+				 void __user *buffer, size_t *lenp, loff_t *ppos)
 {
 	int result;
 	result = proc_dointvec(table, write, buffer, lenp, ppos);
@@ -743,9 +765,9 @@ int MTP_dointvec(struct ctl_table *table, int write,
  * Return: 0 for success, nonzero for error.
  */
 int MTP_sysctl_softirq_cores(struct ctl_table *table, int write,
-		void __user *buffer, size_t *lenp, loff_t *ppos)
+							 void __user *buffer, size_t *lenp, loff_t *ppos)
 {
-	int result=0;
+	int result = 0;
 	return result;
 }
 

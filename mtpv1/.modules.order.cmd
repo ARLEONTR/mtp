@@ -1,1 +1,1 @@
-savedcmd_/root/mtp/mtpv1/modules.order := {   echo /root/mtp/mtpv1/mtp.o; :; } > /root/mtp/mtpv1/modules.order
+savedcmd_/home/kerneldev/mtp/mtpv1/modules.order := {   echo /home/kerneldev/mtp/mtpv1/mtp.o; :; } > /home/kerneldev/mtp/mtpv1/modules.order

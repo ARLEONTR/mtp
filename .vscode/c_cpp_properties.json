@@ -1,0 +1,40 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}/mtpv1",
+                "${workspaceFolder}/linux-6.6.2/include",
+                "${workspaceFolder}/linux-6.6.2/include/generated",
+                "${workspaceFolder}/linux-6.6.2/arch/x86/include",
+                "${workspaceFolder}/linux-6.6.2/arch/x86/include/generated",
+                "${workspaceFolder}/linux-6.6.2/arch/x86/include/generated/uapi",
+                "${workspaceFolder}/linux-6.6.2/include/uapi",
+                "${workspaceFolder}/linux-6.6.2/arch/x86/include/uapi"
+            ],
+            "compilerPath": "/usr/bin/gcc",
+            "cppStandard": "c++17",
+            "cStandard": "gnu99",
+            "intelliSenseMode": "gcc-x64",
+            "defines": [
+                "KBUILD_MODNAME=\"mtp\"",
+                "__GNUC__",
+                "__KERNEL__",
+                "MODULE"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "${workspaceRoot}/**",
+                    "${workspaceFolder}/linux-6.6.2/include",
+                    "${workspaceFolder}/linux-6.6.2/mm",
+                    "${workspaceFolder}/linux-6.6.2/fs",
+                    "${workspaceFolder}/linux-6.6.2/kernel",
+                    "${workspaceFolder}/mtpv1"
+                ]
+            }
+        }
+    ],
+    "version": 4
+}

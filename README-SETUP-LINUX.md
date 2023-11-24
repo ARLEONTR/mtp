@@ -4,6 +4,8 @@ These instructions are mostly from: [How To Build A Custom Linux Kernel For Qemu
 
 Instead of cross-compiling, we will use the Host Machine's build tools and use the adequate qemu.
 
+On Linux, we do not need a docker container, we can directly build kernel here.
+
 ## Prepare the build environment on Ubuntu 22.04
 ```
 sudo apt-get update
