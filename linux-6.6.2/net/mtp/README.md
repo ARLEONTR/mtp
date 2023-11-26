@@ -73,4 +73,7 @@ IETF Work Group, Transport Services (TAPS) is working on defining the architectu
 
 ## Project Team
 
-[//]: contributor-faces
+[travis-image]: https://img.shields.io/travis/ngarleontrryman/contributor-faces.svg?style=flat
+[travis-url]: https://travis-ci.org/arleontr/mtp
+[codecov-image]: https://img.shields.io/codecov/c/github/ngryman/contributor-faces.svg
+[codecov-url]: https://codecov.io/github/arleontr/mtp
