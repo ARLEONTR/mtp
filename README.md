@@ -1,6 +1,6 @@
 # Mesh Transport Protocol (MTP)
 
-[MTPv1](mtpv1/README.md)
+[MTPv1](linux-6.6.2/net/mtp/README.md)
 
 ## Development environment setup for MAC (M1 or x86)
 
