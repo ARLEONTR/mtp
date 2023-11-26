@@ -16,7 +16,7 @@
         "label": "Run QEMU2",
         "type": "shell",
         "isBackground": true,
-        "command": "echo Starting QEMU&qemu-system-x86_64 -kernel ./linux-6.6.2/arch/x86/boot/bzImage -initrd ./obj/initramfs-busybox.cpio.gz -s -S  -nographic -append 'console=ttyS0 nokaslr earlycon=ttyS0 earlyprintk kgdboc.kgdboc=ttyS0'",
+        "command": "echo Starting QEMU&qemu-system-x86_64 -kernel ./linux-6.6.2/arch/x86/boot/bzImage -initrd ./obj/initramfs-busybox.cpio.gz -s -S -nographic -append 'console=ttyS0 nokaslr earlycon=ttyS0 earlyprintk kgdboc.kgdboc=ttyS0'",
         "problemMatcher": {
             "pattern": {
                 "regexp": "^(Starting QEMU)",

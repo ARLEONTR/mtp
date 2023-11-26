@@ -22,9 +22,13 @@
 MODULE_LICENSE("GPL");
 #endif
 
+#define DRV_VERSION "0.01"
+#define DRV_RELDATE "Nov 25, 2023"
+
 MODULE_AUTHOR("Ertan Onur");
-MODULE_DESCRIPTION("MTP: Mesh Transport Protocol");
-MODULE_VERSION("0.01");
+MODULE_DESCRIPTION("MTP: Mesh Transport Protocol"
+		   " v" DRV_VERSION " (" DRV_RELDATE ")");
+MODULE_VERSION(DRV_VERSION);
 
 /* Not yet sure what these variables are for */
 long sysctl_MTP_mem[3] __read_mostly;
@@ -185,13 +189,12 @@ static struct proc_dir_entry *metrics_dir_entry = NULL;
 static int action;
 
 /* Used to configure sysctl access to MTP configuration parameters.*/
-static struct ctl_table MTP_ctl_table[] = {
-	{.procname = "action",
-	 .data = &action,
-	 .maxlen = sizeof(int),
-	 .mode = 0644,
-	 .proc_handler = MTP_dointvec},
-	{}};
+static struct ctl_table MTP_ctl_table[] = { { .procname = "action",
+					      .data = &action,
+					      .maxlen = sizeof(int),
+					      .mode = 0644,
+					      .proc_handler = MTP_dointvec },
+					    {} };
 
 /* Used to remove sysctl values when the module is unloaded. */
 static struct ctl_table_header *MTP_ctl_header;
@@ -206,38 +209,36 @@ static int __init MTP_load(void)
 {
 	int status;
 
+#ifdef MTP_DEBUG
 	printk(KERN_NOTICE "MTP module loading\n");
 	printk(KERN_NOTICE "MTP1 module loading\n");
 	printk(KERN_NOTICE "MTP2 module loading\n");
+#endif
 
 	status = proto_register(&MTP_prot, 1);
-	if (status != 0)
-	{
+	if (status != 0) {
 		printk(KERN_ERR "proto_register failed for MTP_prot: %d\n",
-			   status);
+		       status);
 		goto out;
 	}
 	status = proto_register(&MTPv6_prot, 1);
-	if (status != 0)
-	{
+	if (status != 0) {
 		printk(KERN_ERR "proto_register failed for MTPv6_prot: %d\n",
-			   status);
+		       status);
 		goto out;
 	}
 	inet_register_protosw(&MTP_protosw);
 	inet6_register_protosw(&MTPv6_protosw);
 	status = inet_add_protocol(&MTP_protocol, IPPROTO_MTP);
-	if (status != 0)
-	{
+	if (status != 0) {
 		printk(KERN_ERR "inet_add_protocol failed in MTP_load: %d\n",
-			   status);
+		       status);
 		goto out_cleanup;
 	}
 	status = inet6_add_protocol(&MTPv6_protocol, IPPROTO_MTP);
-	if (status != 0)
-	{
+	if (status != 0) {
 		printk(KERN_ERR "inet6_add_protocol failed in MTP_load: %d\n",
-			   status);
+		       status);
 		goto out_cleanup;
 	}
 
@@ -245,18 +246,16 @@ static int __init MTP_load(void)
 	// if (status)
 	//	goto out_cleanup;
 	metrics_dir_entry = proc_create("MTP_metrics", S_IRUGO,
-									init_net.proc_net, &MTP_metrics_pops);
-	if (!metrics_dir_entry)
-	{
+					init_net.proc_net, &MTP_metrics_pops);
+	if (!metrics_dir_entry) {
 		printk(KERN_ERR "couldn't create /proc/net/MTP_metrics\n");
 		status = -ENOMEM;
 		goto out_cleanup;
 	}
 
-	MTP_ctl_header = register_net_sysctl(&init_net, "net/MTP",
-										 MTP_ctl_table);
-	if (!MTP_ctl_header)
-	{
+	MTP_ctl_header =
+		register_net_sysctl(&init_net, "net/MTP", MTP_ctl_table);
+	if (!MTP_ctl_header) {
 		printk(KERN_ERR "couldn't register MTP sysctl parameters\n");
 		status = -ENOMEM;
 		goto out_cleanup;
@@ -327,22 +326,16 @@ int MTP_bind(struct socket *sock, struct sockaddr *addr, int addr_len)
 	sockaddr_in_union *addr_in = (sockaddr_in_union *)addr;
 	int port;
 
-	if (unlikely(addr->sa_family != sock->sk->sk_family))
-	{
+	if (unlikely(addr->sa_family != sock->sk->sk_family)) {
 		return -EAFNOSUPPORT;
 	}
-	if (addr_in->in6.sin6_family == AF_INET6)
-	{
-		if (addr_len < sizeof(struct sockaddr_in6))
-		{
+	if (addr_in->in6.sin6_family == AF_INET6) {
+		if (addr_len < sizeof(struct sockaddr_in6)) {
 			return -EINVAL;
 		}
 		port = ntohs(addr_in->in4.sin_port);
-	}
-	else if (addr_in->in4.sin_family == AF_INET)
-	{
-		if (addr_len < sizeof(struct sockaddr_in))
-		{
+	} else if (addr_in->in4.sin_family == AF_INET) {
+		if (addr_len < sizeof(struct sockaddr_in)) {
 			return -EINVAL;
 		}
 		port = ntohs(addr_in->in6.sin6_port);
@@ -449,9 +442,8 @@ int MTP_socket(struct sock *sk)
  * Return:   0 on success, otherwise a negative errno.
  */
 int MTP_setsockopt(struct sock *sk, int level, int optname, sockptr_t optval,
-				   unsigned int optlen)
+		   unsigned int optlen)
 {
-
 	return 0;
 }
 
@@ -464,12 +456,12 @@ int MTP_setsockopt(struct sock *sk, int level, int optname, sockptr_t optval,
  * @option:  ??.
  * Return:   0 on success, otherwise a negative errno.
  */
-int MTP_getsockopt(struct sock *sk, int level, int optname,
-				   char __user *optval, int __user *option)
+int MTP_getsockopt(struct sock *sk, int level, int optname, char __user *optval,
+		   int __user *option)
 {
 	printk(KERN_WARNING "unimplemented getsockopt invoked on MTP socket:"
-						" level %d, optname %d\n",
-		   level, optname);
+			    " level %d, optname %d\n",
+	       level, optname);
 	return -EINVAL;
 }
 
@@ -498,9 +490,8 @@ int MTP_sendmsg(struct sock *sk, struct msghdr *msg, size_t length)
  *               errno.
  */
 int MTP_recvmsg(struct sock *sk, struct msghdr *msg, size_t len, int flags,
-				int *addr_len)
+		int *addr_len)
 {
-
 	int result = 0;
 	return result;
 }
@@ -514,8 +505,8 @@ int MTP_recvmsg(struct sock *sk, struct msghdr *msg, size_t len, int flags,
  * @flags:  ??
  * Return:  0 on success, otherwise a negative errno.
  */
-int MTP_sendpage(struct sock *sk, struct page *page, int offset,
-				 size_t size, int flags)
+int MTP_sendpage(struct sock *sk, struct page *page, int offset, size_t size,
+		 int flags)
 {
 	printk(KERN_WARNING "unimplemented sendpage invoked on MTP socket\n");
 	return -ENOSYS;
@@ -574,7 +565,8 @@ int MTP_get_port(struct sock *sk, unsigned short snum)
  */
 int MTP_diag_destroy(struct sock *sk, int err)
 {
-	printk(KERN_WARNING "unimplemented diag_destroy invoked on MTP socket\n");
+	printk(KERN_WARNING
+	       "unimplemented diag_destroy invoked on MTP socket\n");
 	return -ENOSYS;
 }
 
@@ -585,7 +577,8 @@ int MTP_diag_destroy(struct sock *sk, int err)
  */
 int MTP_v4_early_demux(struct sk_buff *skb)
 {
-	printk(KERN_WARNING "unimplemented early_demux invoked on MTP socket\n");
+	printk(KERN_WARNING
+	       "unimplemented early_demux invoked on MTP socket\n");
 	return 0;
 }
 
@@ -596,7 +589,8 @@ int MTP_v4_early_demux(struct sk_buff *skb)
  */
 int MTP_v4_early_demux_handler(struct sk_buff *skb)
 {
-	printk(KERN_WARNING "unimplemented early_demux_handler invoked on MTP socket\n");
+	printk(KERN_WARNING
+	       "unimplemented early_demux_handler invoked on MTP socket\n");
 	return 0;
 }
 
@@ -623,7 +617,8 @@ int MTP_softirq(struct sk_buff *skb)
  */
 int MTP_backlog_rcv(struct sock *sk, struct sk_buff *skb)
 {
-	printk(KERN_WARNING "unimplemented backlog_rcv invoked on MTP socket\n");
+	printk(KERN_WARNING
+	       "unimplemented backlog_rcv invoked on MTP socket\n");
 	kfree_skb(skb);
 	return 0;
 }
@@ -649,8 +644,8 @@ int MTP_err_handler_v4(struct sk_buff *skb, u32 info)
  *
  * Return: zero, or a negative errno if the error couldn't be handled here.
  */
-int MTP_err_handler_v6(struct sk_buff *skb, struct inet6_skb_parm *opt,
-					   u8 type, u8 code, int offset, __be32 info)
+int MTP_err_handler_v6(struct sk_buff *skb, struct inet6_skb_parm *opt, u8 type,
+		       u8 code, int offset, __be32 info)
 {
 	return 0;
 }
@@ -667,7 +662,7 @@ int MTP_err_handler_v6(struct sk_buff *skb, struct inet6_skb_parm *opt,
  *         state of the socket.
  */
 __poll_t MTP_poll(struct file *file, struct socket *sock,
-				  struct poll_table_struct *wait)
+		  struct poll_table_struct *wait)
 {
 	__poll_t mask;
 	mask = POLLOUT | POLLWRNORM;
@@ -699,8 +694,8 @@ int MTP_metrics_open(struct inode *inode, struct file *file)
  * Return: the number of bytes returned at @buffer. 0 means the end of the
  * file was reached, and a negative number indicates an error (-errno).
  */
-ssize_t MTP_metrics_read(struct file *file, char __user *buffer,
-						 size_t length, loff_t *offset)
+ssize_t MTP_metrics_read(struct file *file, char __user *buffer, size_t length,
+			 loff_t *offset)
 {
 	size_t copied = 0;
 	return copied;
@@ -744,8 +739,8 @@ int MTP_metrics_release(struct inode *inode, struct file *file)
  *
  * Return: 0 for success, nonzero for error.
  */
-int MTP_dointvec(struct ctl_table *table, int write,
-				 void __user *buffer, size_t *lenp, loff_t *ppos)
+int MTP_dointvec(struct ctl_table *table, int write, void __user *buffer,
+		 size_t *lenp, loff_t *ppos)
 {
 	int result;
 	result = proc_dointvec(table, write, buffer, lenp, ppos);
@@ -765,7 +760,7 @@ int MTP_dointvec(struct ctl_table *table, int write,
  * Return: 0 for success, nonzero for error.
  */
 int MTP_sysctl_softirq_cores(struct ctl_table *table, int write,
-							 void __user *buffer, size_t *lenp, loff_t *ppos)
+			     void __user *buffer, size_t *lenp, loff_t *ppos)
 {
 	int result = 0;
 	return result;

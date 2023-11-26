@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: GPL-2.0-only
+
+config MTP
+	tristate "MTP: Mesh Transport Protocol"
+	depends on INET
+	help
+	  MTP: Mesh Transport Protocol  provides reliable
+	  one-to-many and many-to-many communication.
+
+
+config MTP_DEBUG
+	bool "MTP debugging messages"
+	depends on MTP
+	default y
+

@@ -1,7 +1,0 @@
-make -C ../linux-6.6.2 M=/root/mtp/mtpv1 modules
-make[1]: Entering directory '/root/mtp/linux-6.6.2'
-  CC [M]  /root/mtp/mtpv1/mtp.o
-  MODPOST /root/mtp/mtpv1/Module.symvers
-  CC [M]  /root/mtp/mtpv1/mtp.mod.o
-  LD [M]  /root/mtp/mtpv1/mtp.ko
-make[1]: Leaving directory '/root/mtp/linux-6.6.2'

@@ -22,7 +22,8 @@
                 "KBUILD_MODNAME=\"mtp\"",
                 "__GNUC__",
                 "__KERNEL__",
-                "MODULE"
+                "MODULE",
+                "MTP_DEBUG"
             ],
             "browse": {
                 "path": [
