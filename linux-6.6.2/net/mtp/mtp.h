@@ -19,26 +19,20 @@
 #ifndef _MTP_H
 #define _MTP_H
 
-
 #include <linux/types.h>
 #ifndef __KERNEL__
 #include <netinet/in.h>
 #include <sys/socket.h>
 #endif
 
-
-
-
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /* MTP's protocol number within the IP protocol space 
  * (this is not an officially allocated slot).
  */
-#define IPPROTO_MTP 0xFE // For experimentation
-
+//#define IPPROTO_MTP 0xFE // For experimentation
 
 #ifdef __cplusplus
 }
