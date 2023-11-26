@@ -70,10 +70,3 @@ Some of the challenges that will be tackled in this project are
 Any peer-to-peer overlay network may employ MTP as the transport layer protocol. MTP can be used in a micro-service environment for replication, load balancing, and establishing a common state among multiple containers. Blockchain infrastructures are another candidate application area for implementing distributed consensus protocols. Furthermore, advanced cryptographic protocols such as multi-party computation or threshold-based cryptosystems require a transport protocol such as MTP.
 
 IETF Work Group, Transport Services (TAPS) is working on defining the architecture and requirements for transport layer services. However, their approach is still following the SCSS paradigm, albeit multipath routing is considered. We may have a chance to extend their view for one-client to many-servers transport service.  
-
-## Project Team
-
-[travis-image]: https://img.shields.io/travis/ngarleontrryman/contributor-faces.svg?style=flat
-[travis-url]: https://travis-ci.org/arleontr/mtp
-[codecov-image]: https://img.shields.io/codecov/c/github/ngryman/contributor-faces.svg
-[codecov-url]: https://codecov.io/github/arleontr/mtp
