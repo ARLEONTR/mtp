@@ -73,8 +73,4 @@ IETF Work Group, Transport Services (TAPS) is working on defining the architectu
 
 ## Project Team
 
-
-[![All Contributors](https://img.shields.io/github/all-contributors/all-contributors/all-contributors?color=ee8449&style=flat-square)](#contributors-)
-(https://app.netlify.com/sites/allcontributors-org/deploys)
-[![Star on GitHub](https://img.shields.io/github/stars/all-contributors/all-contributors.svg?style=social)](https://github.com/all-contributors/all-contributors/stargazers)
-
+[//]: contributor-faces
