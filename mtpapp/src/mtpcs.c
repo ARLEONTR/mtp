@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     struct sockaddr_in sin;
     memset(&sin, 0, sizeof(sin));
     sin.sin_family = AF_INET;
-    sin.sin_addr.s_addr = inet_addr("127.0.0.1");
+    sin.sin_addr.s_addr = htonl(INADDR_ANY);
     sin.sin_port = TESTPORT;
 
     // Let's bind the socket to an MTP port number
