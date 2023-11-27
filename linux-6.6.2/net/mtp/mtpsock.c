@@ -19,61 +19,61 @@
 #include "mtpimpl.h"
 
 /**
- * homa_sock_init() - Constructor for homa_sock objects. This function
- * initializes only the parts of the socket that are owned by Homa.
- * @hsk:    Object to initialize.
- * @homa:   Homa implementation that will manage the socket.
+ * MTP_sock_init() - Constructor for MTP_sock objects. This function
+ * initializes only the parts of the socket that are owned by MTP.
+ * @mtpsk:    Object to initialize.
+ * @MTP:   MTP implementation that will manage the socket.
  *
  * Return: always 0 (success).
  */
-void homa_sock_init(struct homa_sock *hsk, struct homa *homa)
+void MTP_sock_init(struct MTP_sock *mtpsk, struct MTP *mtp)
 {
-	struct homa_socktab *socktab = &homa->port_map;
+	struct MTP_socktab *socktab = &mtp->port_map;
 	int i;
 
 	spin_lock_bh(&socktab->write_lock);
-	atomic_set(&hsk->protect_count, 0);
-	spin_lock_init(&hsk->lock);
-	hsk->last_locker = "none";
-	atomic_set(&hsk->protect_count, 0);
-	hsk->homa = homa;
-	hsk->ip_header_length = (hsk->inet.sk.sk_family == AF_INET)
-			? HOMA_IPV4_HEADER_LENGTH : HOMA_IPV6_HEADER_LENGTH;
-	hsk->shutdown = false;
+	atomic_set(&mtpsk->protect_count, 0);
+	spin_lock_init(&mtpsk->lock);
+	mtpsk->last_locker = "none";
+	atomic_set(&mtpsk->protect_count, 0);
+	mtpsk->mtp = mtp;
+	mtpsk->ip_header_length = (mtpsk->inet.sk.sk_family == AF_INET)
+			? MTP_IPV4_HEADER_LENGTH : MTP_IPV6_HEADER_LENGTH;
+	mtpsk->shutdown = false;
 	while (1) {
-		if (homa->next_client_port < HOMA_MIN_DEFAULT_PORT) {
-			homa->next_client_port = HOMA_MIN_DEFAULT_PORT;
+		if (mtp->next_client_port < HOMA_MIN_DEFAULT_PORT) {
+			mtp->next_client_port = HOMA_MIN_DEFAULT_PORT;
 		}
-		if (!homa_sock_find(socktab, homa->next_client_port)) {
+		if (!mtp(socktab, homa->next_client_port)) {
 			break;
 		}
-		homa->next_client_port++;
+		mtp->next_client_port++;
 	}
-	hsk->port = homa->next_client_port;
-	hsk->inet.inet_num = hsk->port;
-	hsk->inet.inet_sport = htons(hsk->port);
-	homa->next_client_port++;
-	hsk->socktab_links.sock = hsk;
-	hlist_add_head_rcu(&hsk->socktab_links.hash_links,
-			&socktab->buckets[homa_port_hash(hsk->port)]);
-	INIT_LIST_HEAD(&hsk->active_rpcs);
-	INIT_LIST_HEAD(&hsk->dead_rpcs);
-	hsk->dead_skbs = 0;
-	INIT_LIST_HEAD(&hsk->waiting_for_bufs);
-	INIT_LIST_HEAD(&hsk->ready_requests);
-	INIT_LIST_HEAD(&hsk->ready_responses);
-	INIT_LIST_HEAD(&hsk->request_interests);
-	INIT_LIST_HEAD(&hsk->response_interests);
-	for (i = 0; i < HOMA_CLIENT_RPC_BUCKETS; i++) {
-		struct homa_rpc_bucket *bucket = &hsk->client_rpc_buckets[i];
+	mtpsk->port = mtp->next_client_port;
+	mtpsk->inet.inet_num = mtpsk->port;
+	mtpsk->inet.inet_sport = htons(mtpsk->port);
+	mtp->next_client_port++;
+	mtpsk->socktab_links.sock = mtpsk;
+	hlist_add_head_rcu(&mtpsk->socktab_links.hash_links,
+			&socktab->buckets[mtp_port_hash(mtpsk->port)]);
+	INIT_LIST_HEAD(&mtpsk->active_rpcs);
+	INIT_LIST_HEAD(&mtpsk->dead_rpcs);
+	mtpsk->dead_skbs = 0;
+	INIT_LIST_HEAD(&mtpsk->waiting_for_bufs);
+	INIT_LIST_HEAD(&mtpsk->ready_requests);
+	INIT_LIST_HEAD(&mtpsk->ready_responses);
+	INIT_LIST_HEAD(&mtpsk->request_interests);
+	INIT_LIST_HEAD(&mtpsk->response_interests);
+	for (i = 0; i < MTP_CLIENT_RPC_BUCKETS; i++) {
+		struct mtp_rpc_bucket *bucket = &mtpsk->client_rpc_buckets[i];
 		spin_lock_init(&bucket->lock);
 		INIT_HLIST_HEAD(&bucket->rpcs);
 	}
-	for (i = 0; i < HOMA_SERVER_RPC_BUCKETS; i++) {
-		struct homa_rpc_bucket *bucket = &hsk->server_rpc_buckets[i];
+	for (i = 0; i < MTP_SERVER_RPC_BUCKETS; i++) {
+		struct mtp_rpc_bucket *bucket = &mtpsk->server_rpc_buckets[i];
 		spin_lock_init(&bucket->lock);
 		INIT_HLIST_HEAD(&bucket->rpcs);
 	}
-	memset(&hsk->buffer_pool, 0, sizeof(hsk->buffer_pool));
+	memset(&mtpsk->buffer_pool, 0, sizeof(mtpsk->buffer_pool));
 	spin_unlock_bh(&socktab->write_lock);
 }
