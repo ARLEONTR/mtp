@@ -36,7 +36,9 @@ RUN apt-get install -y \
         git \
         fakeroot \
         xz-utils \
-        fakeroot 
+        fakeroot \
+        qemu-kvm \
+        libvirt-daemon-system
 
 # The following are for compiling documentation
 RUN apt-get install -y \
