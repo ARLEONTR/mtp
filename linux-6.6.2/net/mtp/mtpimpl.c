@@ -210,9 +210,7 @@ static int __init MTP_load(void)
 	int status;
 
 #ifdef MTP_DEBUG
-	printk(KERN_NOTICE "MTP module loading\n");
-	printk(KERN_NOTICE "MTP1 module loading\n");
-	printk(KERN_NOTICE "MTP2 module loading\n");
+	printk(KERN_NOTICE "MTP module: MTP_load\n");
 #endif
 
 	status = proto_register(&MTP_prot, 1);
@@ -290,6 +288,10 @@ out:
  */
 static void __exit MTP_unload(void)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_unload\n");
+#endif
+
 	printk(KERN_NOTICE "MTP module unloading\n");
 	exiting = true;
 
@@ -322,6 +324,9 @@ module_exit(MTP_unload);
  */
 int MTP_bind(struct socket *sock, struct sockaddr *addr, int addr_len)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_bind\n");
+#endif
 	// struct MTP_sock *hsk = MTP_sk(sock->sk);
 	sockaddr_in_union *addr_in = (sockaddr_in_union *)addr;
 	int port;
@@ -351,6 +356,9 @@ int MTP_bind(struct socket *sock, struct sockaddr *addr, int addr_len)
  */
 void MTP_close(struct sock *sk, long timeout)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_close\n");
+#endif
 	// struct MTP_sock *hsk = MTP_sk(sk);
 	// MTP_sock_destroy(hsk);
 	sk_common_release(sk);
@@ -370,6 +378,9 @@ void MTP_close(struct sock *sk, long timeout)
  */
 int MTP_shutdown(struct socket *sock, int how)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_shutdown\n");
+#endif
 	// MTP_sock_shutdown(MTP_sk(sock->sk));
 	return 0;
 }
@@ -384,6 +395,9 @@ int MTP_shutdown(struct socket *sock, int how)
  */
 int MTP_disconnect(struct sock *sk, int flags)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_disconnect\n");
+#endif
 	printk(KERN_WARNING "unimplemented disconnect invoked on MTP socket\n");
 	return -ENOSYS;
 }
@@ -398,6 +412,9 @@ int MTP_disconnect(struct sock *sk, int flags)
  */
 int MTP_ioc_abort(struct sock *sk, unsigned long arg)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_ioc_abort\n");
+#endif
 	int ret = 0;
 	return ret;
 }
@@ -413,6 +430,9 @@ int MTP_ioc_abort(struct sock *sk, unsigned long arg)
  */
 int MTP_ioctl(struct sock *sk, int cmd, int *arg)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_ioctl\n");
+#endif
 	int result = 0;
 	return result;
 }
@@ -426,10 +446,15 @@ int MTP_ioctl(struct sock *sk, int cmd, int *arg)
  */
 int MTP_socket(struct sock *sk)
 {
-	// struct MTP_sock *hsk = MTP_sk(sk);
-	// MTP_sock_init(hsk, MTP);
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_socket\n");
+#endif
+	struct MTP_sock *mtpsk = MTP_sk(sk);
+	MTP_sock_init(hsk, MTP);
 	return 0;
 }
+
+
 
 /**
  * MTP_setsockopt() - Implements the getsockopt system call for MTP sockets.
@@ -444,6 +469,9 @@ int MTP_socket(struct sock *sk)
 int MTP_setsockopt(struct sock *sk, int level, int optname, sockptr_t optval,
 		   unsigned int optlen)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_setsockopt\n");
+#endif
 	return 0;
 }
 
@@ -459,6 +487,9 @@ int MTP_setsockopt(struct sock *sk, int level, int optname, sockptr_t optval,
 int MTP_getsockopt(struct sock *sk, int level, int optname, char __user *optval,
 		   int __user *option)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_getsockopt\n");
+#endif
 	printk(KERN_WARNING "unimplemented getsockopt invoked on MTP socket:"
 			    " level %d, optname %d\n",
 	       level, optname);
@@ -475,6 +506,9 @@ int MTP_getsockopt(struct sock *sk, int level, int optname, char __user *optval,
  */
 int MTP_sendmsg(struct sock *sk, struct msghdr *msg, size_t length)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_sendmsg\n");
+#endif
 	int result = 0;
 	return result;
 }
@@ -492,6 +526,9 @@ int MTP_sendmsg(struct sock *sk, struct msghdr *msg, size_t length)
 int MTP_recvmsg(struct sock *sk, struct msghdr *msg, size_t len, int flags,
 		int *addr_len)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_recvmsg\n");
+#endif
 	int result = 0;
 	return result;
 }
@@ -508,6 +545,9 @@ int MTP_recvmsg(struct sock *sk, struct msghdr *msg, size_t len, int flags,
 int MTP_sendpage(struct sock *sk, struct page *page, int offset, size_t size,
 		 int flags)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_sendpage\n");
+#endif
 	printk(KERN_WARNING "unimplemented sendpage invoked on MTP socket\n");
 	return -ENOSYS;
 }
@@ -519,6 +559,9 @@ int MTP_sendpage(struct sock *sk, struct page *page, int offset, size_t size,
  */
 int MTP_hash(struct sock *sk)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_hash\n");
+#endif
 	printk(KERN_WARNING "unimplemented hash invoked on MTP socket\n");
 	return 0;
 }
@@ -529,6 +572,9 @@ int MTP_hash(struct sock *sk)
  */
 void MTP_unhash(struct sock *sk)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_unhash\n");
+#endif
 	return;
 	printk(KERN_WARNING "unimplemented unhash invoked on MTP socket\n");
 }
@@ -539,6 +585,9 @@ void MTP_unhash(struct sock *sk)
  */
 void MTP_rehash(struct sock *sk)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_rehash\n");
+#endif
 	printk(KERN_WARNING "unimplemented rehash invoked on MTP socket\n");
 }
 
@@ -551,6 +600,9 @@ void MTP_rehash(struct sock *sk)
  */
 int MTP_get_port(struct sock *sk, unsigned short snum)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_get_port\n");
+#endif
 	/* MTP always assigns ports immediately when a socket is created,
 	 * so there is nothing to do here.
 	 */
@@ -565,6 +617,9 @@ int MTP_get_port(struct sock *sk, unsigned short snum)
  */
 int MTP_diag_destroy(struct sock *sk, int err)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_diag_destroy\n");
+#endif
 	printk(KERN_WARNING
 	       "unimplemented diag_destroy invoked on MTP socket\n");
 	return -ENOSYS;
@@ -577,6 +632,9 @@ int MTP_diag_destroy(struct sock *sk, int err)
  */
 int MTP_v4_early_demux(struct sk_buff *skb)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_v4_early_demux\n");
+#endif
 	printk(KERN_WARNING
 	       "unimplemented early_demux invoked on MTP socket\n");
 	return 0;
@@ -589,6 +647,9 @@ int MTP_v4_early_demux(struct sk_buff *skb)
  */
 int MTP_v4_early_demux_handler(struct sk_buff *skb)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_v4_early_demux_handler\n");
+#endif
 	printk(KERN_WARNING
 	       "unimplemented early_demux_handler invoked on MTP socket\n");
 	return 0;
@@ -602,6 +663,9 @@ int MTP_v4_early_demux_handler(struct sk_buff *skb)
  */
 int MTP_softirq(struct sk_buff *skb)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_softirq\n");
+#endif
 	printk(KERN_WARNING "unimplemented MTP_softirq\n");
 	return 0;
 }
@@ -617,6 +681,9 @@ int MTP_softirq(struct sk_buff *skb)
  */
 int MTP_backlog_rcv(struct sock *sk, struct sk_buff *skb)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_backlog_rcv\n");
+#endif
 	printk(KERN_WARNING
 	       "unimplemented backlog_rcv invoked on MTP socket\n");
 	kfree_skb(skb);
@@ -633,6 +700,9 @@ int MTP_backlog_rcv(struct sock *sk, struct sk_buff *skb)
  */
 int MTP_err_handler_v4(struct sk_buff *skb, u32 info)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_err_handler_v4\n");
+#endif
 	return 0;
 }
 
@@ -647,6 +717,9 @@ int MTP_err_handler_v4(struct sk_buff *skb, u32 info)
 int MTP_err_handler_v6(struct sk_buff *skb, struct inet6_skb_parm *opt, u8 type,
 		       u8 code, int offset, __be32 info)
 {
+	#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_err_handler_v6\n");
+#endif
 	return 0;
 }
 
@@ -664,6 +737,9 @@ int MTP_err_handler_v6(struct sk_buff *skb, struct inet6_skb_parm *opt, u8 type,
 __poll_t MTP_poll(struct file *file, struct socket *sock,
 		  struct poll_table_struct *wait)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_poll\n");
+#endif
 	__poll_t mask;
 	mask = POLLOUT | POLLWRNORM;
 	return mask;
@@ -679,6 +755,9 @@ __poll_t MTP_poll(struct file *file, struct socket *sock,
  */
 int MTP_metrics_open(struct inode *inode, struct file *file)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_metrics_open\n");
+#endif
 	return 0;
 }
 
@@ -697,6 +776,9 @@ int MTP_metrics_open(struct inode *inode, struct file *file)
 ssize_t MTP_metrics_read(struct file *file, char __user *buffer, size_t length,
 			 loff_t *offset)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_metrics_read\n");
+#endif
 	size_t copied = 0;
 	return copied;
 }
@@ -711,6 +793,9 @@ ssize_t MTP_metrics_read(struct file *file, char __user *buffer, size_t length,
  */
 loff_t MTP_metrics_lseek(struct file *file, loff_t offset, int whence)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_metrics_lseek\n");
+#endif
 	return 0;
 }
 
@@ -724,6 +809,9 @@ loff_t MTP_metrics_lseek(struct file *file, loff_t offset, int whence)
  */
 int MTP_metrics_release(struct inode *inode, struct file *file)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_metrics_release\n");
+#endif
 	return 0;
 }
 
@@ -742,6 +830,9 @@ int MTP_metrics_release(struct inode *inode, struct file *file)
 int MTP_dointvec(struct ctl_table *table, int write, void __user *buffer,
 		 size_t *lenp, loff_t *ppos)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_dointvec\n");
+#endif
 	int result;
 	result = proc_dointvec(table, write, buffer, lenp, ppos);
 	return result;
@@ -762,6 +853,9 @@ int MTP_dointvec(struct ctl_table *table, int write, void __user *buffer,
 int MTP_sysctl_softirq_cores(struct ctl_table *table, int write,
 			     void __user *buffer, size_t *lenp, loff_t *ppos)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_sysctl_softirq_cores\n");
+#endif
 	int result = 0;
 	return result;
 }
@@ -775,6 +869,9 @@ int MTP_sysctl_softirq_cores(struct ctl_table *table, int write,
  */
 enum hrtimer_restart MTP_hrtimer(struct hrtimer *timer)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: hrtimer_restart\n");
+#endif
 	return HRTIMER_NORESTART;
 }
 
@@ -786,5 +883,8 @@ enum hrtimer_restart MTP_hrtimer(struct hrtimer *timer)
  */
 int MTP_timer_main(void *transportInfo)
 {
+#ifdef MTP_DEBUG
+	printk(KERN_NOTICE "MTP module: MTP_timer_main\n");
+#endif
 	return 0;
 }

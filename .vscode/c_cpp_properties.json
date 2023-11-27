@@ -4,7 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}",
-                "${workspaceFolder}/mtpv1",
+                "${workspaceFolder}/mtpapp",
                 "${workspaceRoot}/linux-6.6.2/**",
                 "${workspaceFolder}/linux-6.6.2/include",
                 "${workspaceFolder}/linux-6.6.2/include/generated",
@@ -33,7 +33,7 @@
                     "${workspaceFolder}/linux-6.6.2/mm",
                     "${workspaceFolder}/linux-6.6.2/fs",
                     "${workspaceFolder}/linux-6.6.2/kernel",
-                    "${workspaceFolder}/mtpv1"
+                    "${workspaceFolder}/mtpapp"
                 ]
             }
         }

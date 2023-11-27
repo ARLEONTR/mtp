@@ -19,8 +19,9 @@
 #ifndef _MTP_H
 #define _MTP_H
 
-#include <linux/types.h>
+
 #ifndef __KERNEL__
+#include <linux/types.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
 #endif
