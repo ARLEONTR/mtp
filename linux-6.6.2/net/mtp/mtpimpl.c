@@ -449,8 +449,8 @@ int MTP_socket(struct sock *sk)
 #ifdef MTP_DEBUG
 	printk(KERN_NOTICE "MTP module: MTP_socket\n");
 #endif
-	struct MTP_sock *mtpsk = MTP_sk(sk);
-	MTP_sock_init(hsk, MTP);
+	//struct MTP_sock *mtpsk = MTP_sk(sk);
+	//MTP_sock_init(mtpsk, MTP);
 	return 0;
 }
 

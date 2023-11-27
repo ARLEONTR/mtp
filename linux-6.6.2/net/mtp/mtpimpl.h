@@ -43,6 +43,11 @@
 typedef unsigned int __poll_t;
 #endif
 
+struct MTP {
+	int i;
+};
+
+
 /**
  * struct MTP_sock - Information about an open socket.
  */
@@ -52,6 +57,7 @@ struct MTP_sock {
 		struct inet_sock inet;
 	};
 	struct spinlock lock;
+	char *last_locker;
 	bool shutdown;
 	__u16 port;
 	int ip_header_length;

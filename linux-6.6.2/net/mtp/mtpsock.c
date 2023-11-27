@@ -28,12 +28,12 @@
  */
 void MTP_sock_init(struct MTP_sock *mtpsk, struct MTP *mtp)
 {
-	struct MTP_socktab *socktab = &mtp->port_map;
-	int i;
-
-	spin_lock_bh(&socktab->write_lock);
-	atomic_set(&mtpsk->protect_count, 0);
-	spin_lock_init(&mtpsk->lock);
+//	struct MTP_socktab *socktab = &mtp->port_map;
+	//int i;
+/*
+	//spin_lock_bh(&socktab->write_lock);
+	//atomic_set(&mtpsk->protect_count, 0);
+	//spin_lock_init(&mtpsk->lock);
 	mtpsk->last_locker = "none";
 	atomic_set(&mtpsk->protect_count, 0);
 	mtpsk->mtp = mtp;
@@ -41,10 +41,10 @@ void MTP_sock_init(struct MTP_sock *mtpsk, struct MTP *mtp)
 			? MTP_IPV4_HEADER_LENGTH : MTP_IPV6_HEADER_LENGTH;
 	mtpsk->shutdown = false;
 	while (1) {
-		if (mtp->next_client_port < HOMA_MIN_DEFAULT_PORT) {
-			mtp->next_client_port = HOMA_MIN_DEFAULT_PORT;
+		if (mtp->next_client_port < MTP_MIN_DEFAULT_PORT) {
+			mtp->next_client_port = MTP_MIN_DEFAULT_PORT;
 		}
-		if (!mtp(socktab, homa->next_client_port)) {
+		if (!mtp(socktab, mtp->next_client_port)) {
 			break;
 		}
 		mtp->next_client_port++;
@@ -52,8 +52,10 @@ void MTP_sock_init(struct MTP_sock *mtpsk, struct MTP *mtp)
 	mtpsk->port = mtp->next_client_port;
 	mtpsk->inet.inet_num = mtpsk->port;
 	mtpsk->inet.inet_sport = htons(mtpsk->port);
+	
 	mtp->next_client_port++;
 	mtpsk->socktab_links.sock = mtpsk;
+	
 	hlist_add_head_rcu(&mtpsk->socktab_links.hash_links,
 			&socktab->buckets[mtp_port_hash(mtpsk->port)]);
 	INIT_LIST_HEAD(&mtpsk->active_rpcs);
@@ -75,5 +77,7 @@ void MTP_sock_init(struct MTP_sock *mtpsk, struct MTP *mtp)
 		INIT_HLIST_HEAD(&bucket->rpcs);
 	}
 	memset(&mtpsk->buffer_pool, 0, sizeof(mtpsk->buffer_pool));
+	
 	spin_unlock_bh(&socktab->write_lock);
+	*/
 }
