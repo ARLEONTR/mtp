@@ -1,16 +1,13 @@
 CC = gcc
 CFLAGS += -I./include -I../usr/include # in linux-6.6.2 directory run make
-CFLAGS += -g -Wall -DMTP_DEBUG=1
-MTP_DEBUG = 1
+CFLAGS += -g -Wall
 LDFLAGS = -static
 
-TARGET_MTP_EXEC := mtpcs
+TARGET_RDS_EXEC := rds-sample
 
-BUILD_DIR := ../initramfs/busybox/mtp
+BUILD_DIR := ../initramfs/busybox/rdp
 SRC_DIRS := ./src
-KERNELMTPSRC := ../linux-6.6.2/net/mtp
 SRCS := $(shell find $(SRC_DIRS) -name '*.cpp' -or -name '*.c' -or -name '*.s')
-KERNELMTPSRCS := $(shell find $(KERNELMTPSRC) -name '*')
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
 INC_DIRS := $(shell find $(SRC_DIRS) -type d)
@@ -18,10 +15,10 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 CPPFLAGS :=  $(INC_FLAGS) -MMD -MP
 
 
-$(BUILD_DIR)/$(TARGET_MTP_EXEC): $(OBJS) # $(KERNELMTPSRCS) #Note that if the mtp folder changes in the kernel we compile kernel again and build userland (busybox)
+$(BUILD_DIR)/$(TARGET_RDS_EXEC): $(OBJS) 
 	$(CXX) $(OBJS) -o $@ $(LDFLAGS)
 	/bin/bash -c "pushd ../initramfs/busybox; find . -print0 | cpio --null -o --format=newc | gzip -9 > ../../obj/initramfs-busybox.cpio.gz; popd"
-#	/bin/bash -c "pushd ../linux-6.6.2 && make -j$(nproc) && popd"
+
 
 $(BUILD_DIR)/%.c.o: %.c
 	mkdir -p $(dir $@)

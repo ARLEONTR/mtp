@@ -1,4 +1,8 @@
 {
+    "editor.formatOnSave": true,
+    "clang-format.style": ".clang-format",
+    "C_Cpp.clang_format_path": "/usr/bin/clang-format",
+    "C_Cpp.codeFolding": "enabled",
     "C_Cpp.default.includePath": [
         "${workspaceFolder}",
         "${workspaceFolder}/mtpv1",
