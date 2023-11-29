@@ -242,7 +242,7 @@ chmod +x init
 
 find . -print0 |
     cpio --null --create --verbose  --format=newc |
-    lz4c -l > ../obj/initramfs.img.lz4
+    lz4c -l > ../obj/initramfs-alpine.img.lz4
 
 popd
 ```
