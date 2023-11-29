@@ -9,7 +9,7 @@
     "program": "${workspaceFolder}/linux-6.6.2/vmlinux", // for loading symbols from running program
     //"program": "${workspaceFolder}/mtpv1/mtp.ko", // for loading symbols from running program
     "cwd": "${workspaceFolder}",
-    "preLaunchTask": "Run QEMU2",
+    "preLaunchTask": "Run QEMU ALPINE X86", //Run QEMU BUSYBOX X86
     // if you want to connect at entry point (requires remote program to start paused)
     "stopAtEntry": true,
     "stopAtConnect": true,
