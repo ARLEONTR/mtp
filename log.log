@@ -1,0 +1,8 @@
+c[?7l[2J[0mSeaBIOS (version 1.15.0-1)
+
+
+iPXE (https://ipxe.org) 00:05.0 CA00 PCI2.10 PnP PMM+7FF8AF90+7FECAF90 CA00
+Press Ctrl-B to configure iPXE (PCI 00:05.0)...                                                                               
+
+
+Booting from ROM..c[?7l[2Jqemu-system-x86_64: terminating on signal 15 from pid 470302 ()
