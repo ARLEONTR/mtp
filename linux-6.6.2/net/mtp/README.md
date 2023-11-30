@@ -3,6 +3,8 @@
 
 For debugging, we develop the MTP LKM as an in-tree module. We will take it out of tree when we finish the development.
 
+
+
 ## Objective
 
 Although the Internet evolved as a robust network, many aspects are set in stone causing ossification. ASes block traffic other than TCP and UDP. A consequence is the difficulty in extending routing for multicasting and broadcasting. Another challenge is that the legacy application layer protocols follow the client-server paradigm where only a single client can communicate with a single server using legacy transport layer protocols such as TCP or UDP.  We call this approach the single-client-to-single-server (SCSS) paradigm. Moreover, the separation of policy from mechanism is not foreseen in present transport layer protocols. The SCSS paradigm can be extended by developing a transport layer protocol that helps a client communicate with multiple servers concurrently which we refer to as mesh transport protocol (MTP). We encounter mesh networks such as Bluetooth Mesh Network or TRILL at various layers of the stack across domains. However, there is no transport layer protocol that leverages mesh networking technologies. In this project, we will address this gap and design and develop a Mesh Transport Protocol (MTP) separating policy from mechanism. 
@@ -22,6 +24,8 @@ Any Pub/Sub messaging queue (NSQ, NATS, 0MQ, RabbitMQ, etc.): These are mostly a
 Multi-path Transport Layer Protocols (MPTCP, MRDS, SCCP, etc.) follow the SCSS paradigm exploiting multiple networking interfaces. MTP will exploit multiple interfaces, and further extend the concept of SCSS paradigm. 
 
 ## Challenges
+
+![MTP Features](../../Documentation/images/MTPMindMap.png)
 
 Some of the challenges that will be tackled in this project are
 1.	IETF’s Transport Services (TAPS) work group defines a new asynchronous event-driven API instead of the socket interface. The applicability of this new API is an open research question. The alternative is to extend the Berkeley socket interface. We have to carefully analyze the trade-off between user-space library-based implementation and the kernel-space implementation. A kernel-space implementation may act as a standalone transport protocol implemented in the transport layer. Whereas, the user-space implementation will employ existing transport layer protocols such as UDP or TCP as the conveyor. A thorough analysis has to be conducted.
