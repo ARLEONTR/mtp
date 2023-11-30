@@ -1,4 +1,7 @@
 {
+    "esbonio.sphinx.buildDir" : "${workspaceFolder}/linux-6.6.2/build/html",
+    "esbonio.sphinx.confDir"  : "",
+    "esbonio.sphinx.srcDir"   : "${workspaceFolder}/linux-6.6.2/",
     "editor.formatOnSave": true,
     "clang-format.style": ".clang-format",
     "C_Cpp.clang_format_path": "/usr/bin/clang-format",
@@ -42,7 +45,14 @@
         "mtpimpl.h": "c",
         "bug.h": "c",
         "inet.h": "c"
-    }
-
-    
+    },
+    "spellright.language": [
+        "en"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext",
+        "restructuredtext"
+    ]
 }

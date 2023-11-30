@@ -454,8 +454,6 @@ int MTP_socket(struct sock *sk)
 	return 0;
 }
 
-
-
 /**
  * MTP_setsockopt() - Implements the getsockopt system call for MTP sockets.
  * @sk:      Socket on which the system call was invoked.
@@ -717,7 +715,7 @@ int MTP_err_handler_v4(struct sk_buff *skb, u32 info)
 int MTP_err_handler_v6(struct sk_buff *skb, struct inet6_skb_parm *opt, u8 type,
 		       u8 code, int offset, __be32 info)
 {
-	#ifdef MTP_DEBUG
+#ifdef MTP_DEBUG
 	printk(KERN_NOTICE "MTP module: MTP_err_handler_v6\n");
 #endif
 	return 0;
