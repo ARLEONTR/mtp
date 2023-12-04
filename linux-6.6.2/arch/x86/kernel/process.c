@@ -741,7 +741,7 @@ EXPORT_SYMBOL(boot_option_idle_override);
 void __cpuidle default_idle(void)
 {
 	raw_safe_halt();
-	raw_local_irq_disable();
+-	raw_local_irq_disable();
 }
 #if defined(CONFIG_APM_MODULE) || defined(CONFIG_HALTPOLL_CPUIDLE_MODULE)
 EXPORT_SYMBOL(default_idle);

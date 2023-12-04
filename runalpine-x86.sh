@@ -1,4 +1,4 @@
-qemu-system-x86_64 -machine type=pc-q35-6.0,accel=kvm -m 4G -enable-kvm \
+qemu-system-x86_64 -machine type=pc-q35-6.0 -m 4G  \
     -bios OVMF.fd -drive file=OVMF_CODE.fd,if=pflash,format=raw,unit=0,readonly=on \
     -device virtio-rng-pci \
     -kernel ./linux-6.6.2/arch/x86/boot/bzImage \
