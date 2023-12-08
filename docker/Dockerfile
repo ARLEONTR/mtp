@@ -47,7 +47,12 @@ RUN apt-get install -y \
         python3-sphinx \
         texlive-xetex \
         graphviz \
-        inkscape 
+        inkscape \
+        dvipng \
+        fonts-noto-cjk \
+        latexmk \
+        librsvg2-bin \
+        texlive-lang-chinese
 
 
 RUN pip3 install rst2pdf jinja2 sphinx sphinx_rtd_theme virtualenv

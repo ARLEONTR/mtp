@@ -16,3 +16,5 @@ kconfig/conf
 kconfig/*.c
 toybox
 toybox_unstripped
+/linux-6.6.2/build/html/
+/linux-6.6.2/build/html/*

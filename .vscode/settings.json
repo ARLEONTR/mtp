@@ -1,7 +1,4 @@
 {
-    "esbonio.sphinx.buildDir" : "${workspaceFolder}/linux-6.6.2/build/html",
-    "esbonio.sphinx.confDir"  : "",
-    "esbonio.sphinx.srcDir"   : "${workspaceFolder}/linux-6.6.2/",
     "editor.formatOnSave": true,
     "clang-format.style": ".clang-format",
     "C_Cpp.clang_format_path": "/usr/bin/clang-format",
@@ -24,7 +21,8 @@
         "KBUILD_MODNAME=\"mtp\"",
         "__GNUC__",
         "__KERNEL__",
-        "MODULE"
+        "MODULE",
+        "MTP_DEBUG"
     ],
     "C_Cpp.default.cStandard": "gnu11",
     "C_Cpp.default.cppStandard": "gnu++17",
@@ -52,7 +50,33 @@
     "spellright.documentTypes": [
         "markdown",
         "latex",
-        "plaintext",
-        "restructuredtext"
-    ]
+        "plaintext"
+    ],
+    "makefile.makefilePath": "${workspaceFolder}/linux-6.6.2/Makefile",
+    "makefile.makeDirectory": "${workspaceFolder}/linux-6.6.2",
+    "makefile.buildLog": "./build.log",
+    "makefile.configurations": [
+
+    ],
+    "resttext.sphinxQuickStart.options": {
+
+        "Project name": "MTP",
+        "Author name(s)": "Ertan Onur",
+        "Project version": "1.0",
+        "Project release": "1.0.0",
+        "Project language": "en (English)",
+        "Separate source and build directories": false,
+        "Use epub": false,
+        "Enable autodoc extension": false,
+        "Enable doctest extension": false,
+        "Enable intersphinx extension": false,
+        "Enable todo extension": false,
+        "Enable coverage extension": false,
+        "Enable imgmath extension": false,
+        "Enable mathjax extension": false,
+        "Enable ifconfig extension": false,
+        "Enable viewcode extension": false,
+        "Enable githubpages extension": false
+    }
+
 }

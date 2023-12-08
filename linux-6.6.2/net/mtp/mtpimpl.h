@@ -19,27 +19,29 @@
 
 #ifndef _MTP_IMPL_H
 #define _MTP_IMPL_H
-#include <linux/bug.h>
 #include <linux/audit.h>
+#include <linux/bug.h>
+#include <linux/completion.h>
 #include <linux/icmp.h>
 #include <linux/init.h>
-#include <linux/list.h>
-#include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/kthread.h>
-#include <linux/completion.h>
+#include <linux/list.h>
+#include <linux/module.h>
 #include <linux/proc_fs.h>
 #include <linux/sched/signal.h>
 #include <linux/skbuff.h>
-#include <linux/version.h>
 #include <linux/socket.h>
+#include <linux/version.h>
+#include <net/gro.h>
 #include <net/icmp.h>
+#include <net/inet_common.h>
 #include <net/ip.h>
 #include <net/protocol.h>
-#include <net/inet_common.h>
-#include <net/gro.h>
 
 #define MTP_DEBUG
+#define MODULE_NAME "MTP"
+#define MTP_BUFFER_SIZE 1000
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4, 16, 0)
 typedef unsigned int __poll_t;
@@ -47,8 +49,13 @@ typedef unsigned int __poll_t;
 
 struct MTP {
 	int i;
+	struct task_struct *thread;
+	struct socket *sock;
+	struct sockaddr_in addr;
+	struct socket *sock_send;
+	struct sockaddr_in addr_send;
+	int running;
 };
-
 
 /**
  * struct MTP_sock - Information about an open socket.
@@ -113,6 +120,8 @@ extern int MTP_metrics_open(struct inode *inode, struct file *file);
 extern ssize_t MTP_metrics_read(struct file *file, char __user *buffer,
 				size_t length, loff_t *offset);
 extern int MTP_metrics_release(struct inode *inode, struct file *file);
-extern void MTP_sock_init(struct MTP_sock *hsk, struct MTP *mtp);
+
+extern void MTP_sock_init(struct MTP_sock *mtpsk, struct MTP *mtp);
+extern struct MTP *MTP_init(void);
 
 #endif /* _MTP_IMPL_H */

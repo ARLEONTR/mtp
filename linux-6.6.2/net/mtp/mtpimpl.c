@@ -35,6 +35,7 @@ long sysctl_MTP_mem[3] __read_mostly;
 int sysctl_MTP_rmem_min __read_mostly;
 int sysctl_MTP_wmem_min __read_mostly;
 static bool exiting = false;
+extern struct MTP *mtpinst;
 
 /* This structure defines functions that handle various operations on
  * MTP sockets.
@@ -240,9 +241,11 @@ static int __init MTP_load(void)
 		goto out_cleanup;
 	}
 
-	// status = MTP_init(MTP);
-	// if (status)
-	//	goto out_cleanup;
+	// Initialize the MTP instance and relevant threads for handling packet i/o
+	mtpinst = MTP_init();
+	if (!mtpinst)
+		goto out_cleanup;
+
 	metrics_dir_entry = proc_create("MTP_metrics", S_IRUGO,
 					init_net.proc_net, &MTP_metrics_pops);
 	if (!metrics_dir_entry) {
@@ -369,7 +372,7 @@ void MTP_close(struct sock *sk, long timeout)
 
 /**
  * MTP_shutdown() - Implements the shutdown system call for MTP sockets.
- * @sk:      Socket to shut down.
+ * @sock:      Socket to shut down.
  * @how:     Ignored: for other sockets, can independently shut down
  *           sending and receiving, but for MTP any shutdown will
  *           shut down everything.
@@ -449,8 +452,8 @@ int MTP_socket(struct sock *sk)
 #ifdef MTP_DEBUG
 	printk(KERN_NOTICE "MTP module: MTP_socket\n");
 #endif
-	//struct MTP_sock *mtpsk = MTP_sk(sk);
-	//MTP_sock_init(mtpsk, MTP);
+	struct MTP_sock *mtpsk = MTP_sk(sk);
+	MTP_sock_init(mtpsk, mtpinst);
 	return 0;
 }
 
@@ -499,7 +502,7 @@ int MTP_getsockopt(struct sock *sk, int level, int optname, char __user *optval,
  * @sk:    Socket on which the system call was invoked.
  * @msg:   Structure describing the message to send; the msg_control
  *         field points to additional information.
- * @len:   Number of bytes of the message.
+ * @length:   Number of bytes of the message.
  * Return: 0 on success, otherwise a negative errno.
  */
 int MTP_sendmsg(struct sock *sk, struct msghdr *msg, size_t length)
@@ -709,6 +712,10 @@ int MTP_err_handler_v4(struct sk_buff *skb, u32 info)
  * packet, such as ICMP UNREACHABLE.
  * @skb:   The incoming packet.
  * @info:  Information about the error that occurred?
+ * @opt:   options
+ * @type:  type
+ * @code:  code
+ * @offset: offset
  *
  * Return: zero, or a negative errno if the error couldn't be handled here.
  */
