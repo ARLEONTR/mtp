@@ -1,0 +1,40 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter M
+  \item \spxentry{MTP\_backlog\_rcv}\spxextra{C function}, \hyperpage{6}
+  \item \spxentry{MTP\_bind}\spxextra{C function}, \hyperpage{1}
+  \item \spxentry{MTP\_close}\spxextra{C function}, \hyperpage{2}
+  \item \spxentry{MTP\_diag\_destroy}\spxextra{C function}, \hyperpage{6}
+  \item \spxentry{MTP\_disconnect}\spxextra{C function}, \hyperpage{2}
+  \item \spxentry{MTP\_err\_handler\_v4}\spxextra{C function}, \hyperpage{7}
+  \item \spxentry{MTP\_err\_handler\_v6}\spxextra{C function}, \hyperpage{7}
+  \item \spxentry{MTP\_get\_port}\spxextra{C function}, \hyperpage{5}
+  \item \spxentry{MTP\_hash}\spxextra{C function}, \hyperpage{5}
+  \item \spxentry{MTP\_hrtimer}\spxextra{C function}, \hyperpage{9}
+  \item \spxentry{MTP\_init}\spxextra{C function}, \hyperpage{10}
+  \item \spxentry{MTP\_ioc\_abort}\spxextra{C function}, \hyperpage{2}
+  \item \spxentry{MTP\_ioctl}\spxextra{C function}, \hyperpage{3}
+  \item \spxentry{MTP\_load}\spxextra{C function}, \hyperpage{1}
+  \item \spxentry{MTP\_metrics\_lseek}\spxextra{C function}, \hyperpage{8}
+  \item \spxentry{MTP\_metrics\_open}\spxextra{C function}, \hyperpage{7}
+  \item \spxentry{MTP\_metrics\_release}\spxextra{C function}, \hyperpage{8}
+  \item \spxentry{MTP\_poll}\spxextra{C function}, \hyperpage{7}
+  \item \spxentry{MTP\_recvmsg}\spxextra{C function}, \hyperpage{4}
+  \item \spxentry{MTP\_rehash}\spxextra{C function}, \hyperpage{5}
+  \item \spxentry{MTP\_sendmsg}\spxextra{C function}, \hyperpage{4}
+  \item \spxentry{MTP\_sendpage}\spxextra{C function}, \hyperpage{5}
+  \item \spxentry{MTP\_setsockopt}\spxextra{C function}, \hyperpage{3}
+  \item \spxentry{MTP\_shutdown}\spxextra{C function}, \hyperpage{2}
+  \item \spxentry{MTP\_sock\_init}\spxextra{C function}, \hyperpage{10}
+  \item \spxentry{MTP\_socket}\spxextra{C function}, \hyperpage{3}
+  \item \spxentry{MTP\_softirq}\spxextra{C function}, \hyperpage{6}
+  \item \spxentry{MTP\_timer\_main}\spxextra{C function}, \hyperpage{10}
+  \item \spxentry{MTP\_unhash}\spxextra{C function}, \hyperpage{5}
+  \item \spxentry{MTP\_v4\_early\_demux}\spxextra{C function}, \hyperpage{6}
+  \item \spxentry{MTP\_v4\_early\_demux\_handler}\spxextra{C function}, \hyperpage{6}
+
+\end{sphinxtheindex}

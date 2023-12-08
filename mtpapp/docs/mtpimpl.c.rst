@@ -14,7 +14,7 @@
   0 on success, otherwise a negative errno.
 
 
-.. c:function:: void MTP_unload (void)
+.. c:function:: void __exit MTP_unload (void)
 
    invoked when this module is unloaded from the Linux kernel.
 
@@ -191,7 +191,7 @@
   0 on success, otherwise a negative errno.
 
 
-.. c:function:: int MTP_getsockopt (struct sock *sk, int level, int optname, char  *optval, int  *option)
+.. c:function:: int MTP_getsockopt (struct sock *sk, int level, int optname, char __user *optval, int __user *option)
 
    Implements the getsockopt system call for MTP sockets.
 

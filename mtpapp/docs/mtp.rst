@@ -19,14 +19,9 @@ MTP provides the following **features**:
   application is able to configure supported features of MTP
 - MTP
 
-
-Implementation
-==============
-
-
-
 Headers
 =======
+
 
 
 Authors

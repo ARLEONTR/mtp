@@ -1,8 +1,8 @@
 #!/bin/bash
-#echo "" > ./source/mtpfiles.rst
-#echo ".. toctree:: " >> ./source/mtpfiles.rst
-#echo "     :maxdepth: 2 " >> ./source/mtpfiles.rst
-#echo "     :caption: Contents:"  >> ./source/mtpfiles.rst
+#echo "" > ./mtpfiles.rst
+#echo ".. toctree:: " >> ./mtpfiles.rst
+#echo "     :maxdepth: 2 " >> ./mtpfiles.rst
+#echo "     :caption: Contents:"  >> ./mtpfiles.rst
 #echo "" >> ./source/mtpfiles.rst
 
 for file in /home/kerneldev/mtp/linux-6.6.2/net/mtp/*.c
@@ -12,7 +12,7 @@ do
     else 
         name=${file##*/}
         base=${name%.txt}
-        ./scripts/kernel-doc -rst -no-doc-sections "$file" > ./source/mtpfiles/"${base}.rst"
-    #    echo "  ${base}.rst" >> ./source/mtpfiles.rst
+        ./scripts/kernel-doc -rst -no-doc-sections "$file" > ./"${base}.rst"
+    #    echo "  ${base}.rst" >> ./mtpfiles.rst
     fi
 done

@@ -5,9 +5,9 @@
 # from the environment for the first two.
 SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
-SOURCEDIR     = source
-BUILDDIR      = build
-SPHINXOPTS		+= -D kerneldoc_srctree=/home/kerneldev/mtp/linux-6.6.2 -D kerneldoc_bin=/home/kerneldev/mtp/linux-6.6.2/scripts/kernel-doc
+SOURCEDIR     = .
+BUILDDIR      = _build
+
 # Put it first so that "make" without argument is like "make help".
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
