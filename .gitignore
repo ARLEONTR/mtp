@@ -20,3 +20,6 @@ toybox_unstripped
 /linux-6.6.2/build/html/*
 **/_build/*
 /mtpapp/docs/_build
+
+!./linux-6.6.2/arch/x86_64/boot/bzImage
+!./linux-6.6.2/arch/x86/boot/bzImage
