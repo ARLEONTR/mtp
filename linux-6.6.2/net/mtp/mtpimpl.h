@@ -47,15 +47,11 @@
 typedef unsigned int __poll_t;
 #endif
 
+
 struct MTP {
-	int i;
-	struct task_struct *thread;
-	struct socket *sock;
-	struct sockaddr_in addr;
-	struct socket *sock_send;
-	struct sockaddr_in addr_send;
-	int running;
+	struct list_head mtp_sessions ;
 };
+
 
 /**
  * struct MTP_sock - Information about an open socket.
@@ -72,6 +68,19 @@ struct MTP_sock {
 	int ip_header_length;
 };
 
+
+struct MTP_session {	
+	int i;
+	struct task_struct *thread;
+	struct socket *sock;
+	struct sockaddr_in addr;
+	struct socket *sock_send;
+	struct sockaddr_in addr_send;
+	struct MTP_sock *mtpsock;
+	int running;
+	
+};
+
 /**
  * Holds either an IPv4 or IPv6 address (smaller and easier to use than
  * sockaddr_storage).
@@ -82,10 +91,7 @@ typedef union sockaddr_in_union {
 	struct sockaddr_in6 in6;
 } sockaddr_in_union;
 
-static inline struct MTP_sock *MTP_sk(const struct sock *sk)
-{
-	return (struct MTP_sock *)sk;
-}
+
 
 extern int MTP_bind(struct socket *sk, struct sockaddr *addr, int addr_len);
 extern void MTP_close(struct sock *sock, long timeout);
@@ -123,5 +129,6 @@ extern int MTP_metrics_release(struct inode *inode, struct file *file);
 
 extern void MTP_sock_init(struct MTP_sock *mtpsk, struct MTP *mtp);
 extern struct MTP *MTP_init(void);
+extern struct MTP_session *MTP_session_init(void);
 
 #endif /* _MTP_IMPL_H */

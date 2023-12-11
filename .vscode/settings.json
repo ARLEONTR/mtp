@@ -78,6 +78,7 @@
         "Enable viewcode extension": false,
         "Enable githubpages extension": false
     },
-    "esbonio.sphinx.confDir": ""
+    "esbonio.sphinx.confDir": "",
+    "editor.defaultFormatter": "xaver.clang-format"
 
 }

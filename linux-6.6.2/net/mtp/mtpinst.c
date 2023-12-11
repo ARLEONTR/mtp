@@ -18,9 +18,9 @@
 
 #include "mtpimpl.h"
 
-struct MTP *mtpinst = NULL;
+struct MTP *mtpsess = NULL;
 
-static void mtp_socket_handler(struct MTP *mtpinst)
+static void mtp_socket_handler(struct MTP *mtpsess)
 {
 	unsigned char buf[MTP_BUFFER_SIZE];
 
@@ -38,12 +38,13 @@ static void mtp_socket_handler(struct MTP *mtpinst)
  * MTP_sock_init() - Constructor for MTP_sock objects. This function
  * initializes only the parts of the socket that are owned by MTP.
  * @mtpsk:    Object to initialize.
- * @mtpinst:   MTP implementation that will manage the socket.
+ * @mtpsess:   MTP implementation that will manage the socket.
  *
  * Return: always 0 (success).
  */
-void MTP_sock_init(struct MTP_sock *mtpsk, struct MTP *mtpinst)
+void MTP_sock_init(struct MTP_sock *mtpsk, struct MTP *mtpsess)
 {
+	int err;
 	/* create a socket */
 	if (((err = sock_create(AF_INET, SOCK_DGRAM, IPPROTO_UDP,
 				&mtpsk->sock)) < 0)) {
@@ -52,14 +53,30 @@ void MTP_sock_init(struct MTP_sock *mtpsk, struct MTP *mtpinst)
 		       -ENXIO);
 		goto out;
 	}
-
+/*
 close_and_out:
-	sock_release(mtpinst->sock);
+	sock_release(mtpsess->sock);
 	kthread->sock = NULL;
-
+*/
 out:
-	mtpinst->thread = NULL;
-	mtpinst->running = 0;
+	mtpsess->thread = NULL;
+	mtpsess->running = 0;
+}
+
+struct MTP_session *MTP_session_init(void){
+
+	mtpsess = kmalloc(sizeof(struct MTP_session), GFP_KERNEL);
+	memset(mtpsess, 0, sizeof(struct MTP_session));
+
+	mtpsess->thread =
+		kthread_run((void *)mtp_socket_handler, NULL, MODULE_NAME);
+	if (IS_ERR(mtpsess->thread)) {
+		printk(KERN_INFO MODULE_NAME
+		       ": unable to start kernel thread\n");
+		kfree(mtpsess);
+		mtpsess = NULL;
+	}
+	return mtpsess;
 }
 
 /**
@@ -70,16 +87,11 @@ out:
  */
 struct MTP *MTP_init(void)
 {
-	mtpinst = kmalloc(sizeof(struct MTP), GFP_KERNEL);
-	memset(mtpinst, 0, sizeof(struct MTP));
 
-	mtpinst->thread =
-		kthread_run((void *)mtp_socket_handler, NULL, MODULE_NAME);
-	if (IS_ERR(mtpinst->thread)) {
-		printk(KERN_INFO MODULE_NAME
-		       ": unable to start kernel thread\n");
-		kfree(mtpinst);
-		mtpinst = NULL;
-	}
-	return mtpinst;
+	mtp = kmalloc(sizeof(struct MTP), GFP_KERNEL);
+	memset(mtp, 0, sizeof(struct MTP));
+
+	INIT_LIST_HEAD(mtp->mtp_sessions);
+	
+	
 }

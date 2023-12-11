@@ -241,7 +241,7 @@ static int __init MTP_load(void)
 		goto out_cleanup;
 	}
 
-	// Initialize the MTP instance and relevant threads for handling packet i/o
+	// Initialize the MTP instance
 	mtpinst = MTP_init();
 	if (!mtpinst)
 		goto out_cleanup;
@@ -330,7 +330,7 @@ int MTP_bind(struct socket *sock, struct sockaddr *addr, int addr_len)
 #ifdef MTP_DEBUG
 	printk(KERN_NOTICE "MTP module: MTP_bind\n");
 #endif
-	// struct MTP_sock *hsk = MTP_sk(sock->sk);
+
 	sockaddr_in_union *addr_in = (sockaddr_in_union *)addr;
 	int port;
 
@@ -348,6 +348,8 @@ int MTP_bind(struct socket *sock, struct sockaddr *addr, int addr_len)
 		}
 		port = ntohs(addr_in->in6.sin6_port);
 	}
+	struct MTP_session *mtpsess = MTP_session_init();
+
 	// return MTP_sock_bind(&MTP->port_map, hsk, port);
 	return 0;
 }
